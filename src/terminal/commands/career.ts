@@ -33,10 +33,10 @@ const career: Command = {
 					paragraph([
 						text('Development of the front- and backend of the '),
 						link('SimpleAgriData', 'https://simple-agri-data.de/', 'simpleagridata'),
-						text(' web app using '),
+						text(' Stallkarten app using '),
 						link('Python', 'https://www.python.org/', 'python'),
 						text(' and '),
-						link('React', 'https://reactjs.org/', 'react'),
+						link('Next.js', 'https://nextjs.org/', 'nextjs'),
 						text('.'),
 					]),
 				]),
