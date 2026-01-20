@@ -58,6 +58,8 @@ class HelpCommand implements Command {
 			text('Type '),
 			mentionCommandName(terminal, 'help <command>', 'help '),
 			text(' to get more information about a specific command.'),
+			linebreak(1),
+			text('Pro tip: You can use tab completion to quickly find commands!'),
 		);
 
 		return commandItems;
