@@ -66,7 +66,7 @@ const career: Command = {
 					paragraph([
 						text('I was the primary engineer of '),
 						link('EventQL', 'https://docs.eventsourcingdb.io/reference/eventql/', 'eventql'),
-						text(', a purpose built query language of the '),
+						text(', a purpose-built query language of the '),
 						link('EventSourcingDB', 'https://eventsourcingdb.io/', 'eventsourcingdb'),
 						text('.'),
 					]),
