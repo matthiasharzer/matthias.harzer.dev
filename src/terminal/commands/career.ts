@@ -34,7 +34,7 @@ const career: Command = {
 						text('Development of the front- and backend of the '),
 						link('SimpleAgriData', 'https://simple-agri-data.de/', 'simpleagridata'),
 						text(' Stallkarten app using '),
-						link('Python', 'https://www.python.org/', 'python'),
+						link('FastAPI', 'https://fastapi.tiangolo.com/', 'fastapi'),
 						text(' and '),
 						link('Next.js', 'https://nextjs.org/', 'nextjs'),
 						text('.'),
@@ -66,7 +66,7 @@ const career: Command = {
 					paragraph([
 						text('I was the primary engineer of '),
 						link('EventQL', 'https://docs.eventsourcingdb.io/reference/eventql/', 'eventql'),
-						text(', a self built query language of the '),
+						text(', a purpose built query language of the '),
 						link('EventSourcingDB', 'https://eventsourcingdb.io/', 'eventsourcingdb'),
 						text('.'),
 					]),

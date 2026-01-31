@@ -73,6 +73,10 @@ export class TerminalResponseItem extends Component {
 				color: #31b9f6;
 			}
 
+			&.fastapi {
+				color: #009485;
+			}
+
 			&.nextjs {
 				color: #000000;
 				  text-shadow: -1px -1px 0 #808080, 1px -1px 0 #808080, -1px 1px 0 #808080, 1px 1px 0 #808080;
