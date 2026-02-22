@@ -1,19 +1,19 @@
-import type { TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { getFunctionParameters, paramsToString } from '../services/function-params.ts';
 import type { Terminal } from '../Terminal.ts';
 
 interface TerminalPart {
 	type:
-		| 'text'
-		| 'highlight'
-		| 'link'
-		| 'linebreak'
-		| 'button'
-		| 'paragraph'
-		| 'indentation'
-		| 'hover-highlight-block'
-		| 'emoji'
-		| 'component';
+	| 'text'
+	| 'highlight'
+	| 'link'
+	| 'linebreak'
+	| 'button'
+	| 'paragraph'
+	| 'indentation'
+	| 'hover-highlight-block'
+	| 'emoji'
+	| 'component';
 }
 
 interface TerminalText extends TerminalPart {
@@ -130,6 +130,7 @@ const hoverHighlightBlock = (parts: TerminalItem[]): TerminalHoverHighlightBlock
 	parts,
 });
 const emoji = (emoji: string): TerminalEmoji => ({ type: 'emoji', emoji });
+const hr = (): TerminalComponent => ({ type: 'component', component: html`<hr>` });
 
 const mentionCommandName = (
 	terminal: Terminal,
@@ -182,6 +183,7 @@ export {
 	paragraph,
 	plainCommand,
 	text,
+	hr,
 };
 export type {
 	Command,

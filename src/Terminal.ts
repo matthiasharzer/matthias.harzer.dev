@@ -26,8 +26,8 @@ export class Terminal extends Component {
 		:host {
 			width: 100%;
 			height: 100%;
-			max-width: 870px;
-			max-height: 580px;
+			max-width: 890px;
+			max-height: 590px;
 		}
 
 		.terminal {
@@ -110,7 +110,7 @@ export class Terminal extends Component {
 	#suggestionTimeout: number | null = null;
 	#resolvePromptResponse: ((value: string) => void) | null = null;
 	#resizeObserver: ResizeObserver | null = null;
-	#startupCommand: Command | null = commands.intro;
+	#startupCommand: Command | null = commands.career;
 
 	@state() inputDisabled: boolean = false;
 	@state() hidden: boolean = false;
@@ -190,6 +190,22 @@ export class Terminal extends Component {
 		}
 	}
 
+	async runTextCommand(commandName: string, ...args: string[]) {
+		const command = findCommand(commandName);
+		if (!command) {
+			this.addResult(commandNotFound(commandName));
+			return;
+		}
+
+		await this.executeCommand(command, ...args);
+	}
+
+	async insertAndExecuteCommand(commandName: string, ...args: string[]) {
+		const commandAndArgs = `${commandName} ${args.join(' ')}`.trim();
+		this.addCommandText(commandAndArgs);
+		await this.runTextCommand(commandName, ...args);
+	}
+
 	async onCommandSubmit(event: CustomEvent<{ value: string }>) {
 		const commandAndArgs = event.detail.value.trim();
 
@@ -207,13 +223,7 @@ export class Terminal extends Component {
 		}
 
 		const { command: commandName, args } = parseCommand(commandAndArgs);
-		const command = findCommand(commandName);
-		if (!command) {
-			this.addResult(commandNotFound(commandName));
-			return;
-		}
-
-		await this.executeCommand(command, ...args);
+		await this.runTextCommand(commandName, ...args);
 	}
 
 	hide() {

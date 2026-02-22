@@ -2,17 +2,9 @@ import { css, html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators/property.js';
 import { state } from 'lit/decorators/state.js';
 import { Component } from './litutil/Component.ts';
-import type { TerminalItem, TerminalResponse } from './terminal/terminal.ts';
+import { renderResponse, renderResponsePart } from './terminal/renderer.ts';
+import type { TerminalResponse } from './terminal/terminal.ts';
 
-const cutText = (text: string, maxLength: number) => {
-	if (maxLength === -1) {
-		return text;
-	}
-	if (text.length <= maxLength) {
-		return text;
-	}
-	return text.slice(0, maxLength);
-};
 
 export class TerminalResponseItem extends Component {
 	static styles = css`
@@ -44,6 +36,11 @@ export class TerminalResponseItem extends Component {
 
 		.highlight {
 			color: #fd63f8;
+
+			&.underline {
+				color: inherit;
+				text-decoration: underline;
+			}
 
 			&.lit {
 				color: #4c64ff;
@@ -133,6 +130,10 @@ export class TerminalResponseItem extends Component {
 
 			&.thenativeweb {
 				color: #dd0099;
+			}
+
+			&.inovex {
+				color: #30a7e7;
 			}
 
 			&.cqrs {
@@ -234,6 +235,12 @@ export class TerminalResponseItem extends Component {
 			}
 		}
 
+		hr {
+			border: none;
+			border-top: 1px solid #44475a;
+			margin: 0.5em 0;
+		}
+
 		.hover-highlight-block {
 			background-color: transparent;
 
@@ -268,7 +275,7 @@ export class TerminalResponseItem extends Component {
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		this.#placeholderRender = this.renderResponse(this.result);
+		this.#placeholderRender = renderResponse(this.result);
 
 		if (this.typewriterCharsPerSecond <= 0) {
 			this._displayedContent = this.#placeholderRender;
@@ -302,7 +309,7 @@ export class TerminalResponseItem extends Component {
 			let remainingCharsToRender = numberOfCharsToRender;
 			for (let i = 0; i < this.result.length; i++) {
 				const part = this.result[i];
-				const [renderedPart, partLength] = this.renderResponsePart(part, remainingCharsToRender);
+				const [renderedPart, partLength] = renderResponsePart(part, remainingCharsToRender);
 				renderedParts.push(renderedPart);
 
 				remainingCharsToRender -= partLength;
@@ -322,77 +329,6 @@ export class TerminalResponseItem extends Component {
 		};
 
 		requestAnimationFrame(frame);
-	}
-
-	renderResponseParts(parts: TerminalItem[], maxCharsToRender: number): [TemplateResult[], number] {
-		const renderedParts: TemplateResult[] = [];
-		let charsRendered = 0;
-		let totalLength = 0;
-		for (const part of parts) {
-			const [renderedPart, partLength] = this.renderResponsePart(
-				part,
-				maxCharsToRender === -1 ? -1 : maxCharsToRender - charsRendered,
-			);
-			if (charsRendered < maxCharsToRender || maxCharsToRender === -1) {
-				renderedParts.push(renderedPart);
-				charsRendered += partLength;
-			}
-
-			totalLength += partLength;
-		}
-		return [renderedParts, totalLength];
-	}
-
-	renderResponsePart(part: TerminalItem, maxCharsToRender: number): [TemplateResult, number] {
-		switch (part.type) {
-			case 'text':
-				return [html`${cutText(part.text, maxCharsToRender)}`, part.text.length];
-			case 'highlight':
-				return [
-					html`<span class="highlight ${part.highlightType ?? ''}">${cutText(part.text, maxCharsToRender)}</span>`,
-					part.text.length,
-				];
-			case 'link':
-				return [
-					html`<a class="highlight ${part.highlightType ?? ''}" href="${part.href}" target="_blank" rel="noopener">${cutText(part.text, maxCharsToRender)}</a>`,
-					part.text.length,
-				];
-			case 'linebreak':
-				return [html`<div class="linebreak" style="height: ${part.height ?? 0}em;"></div>`, 1];
-			case 'button': {
-				return [
-					html`<button class="highlight ${part.highlightType ?? ''}" @click=${() => part.action()}>${cutText(part.text, maxCharsToRender)}</button>`,
-					part.text.length,
-				];
-			}
-			case 'paragraph': {
-				const [renderedParts, totalLength] = this.renderResponseParts(part.parts, maxCharsToRender);
-				return [html`<p>${renderedParts}</p>`, totalLength];
-			}
-			case 'indentation': {
-				const [renderedParts, totalLength] = this.renderResponseParts(part.parts, maxCharsToRender);
-				return [html`<div class="indentation l-${part.level}">${renderedParts}</div>`, totalLength];
-			}
-			case 'hover-highlight-block': {
-				const [renderedParts, totalLength] = this.renderResponseParts(part.parts, maxCharsToRender);
-				return [html`<div class="hover-highlight-block">${renderedParts}</div>`, totalLength];
-			}
-			case 'emoji': {
-				switch (part.emoji) {
-					case '🎉':
-						return [html`<img src="./assets/tada.webp" alt="🎉" class="pixel-emoji" />`, 1];
-					default:
-						return [html`<span>${part.emoji}</span>`, 1];
-				}
-			}
-			case 'component': {
-				return [part.component, 0];
-			}
-		}
-	}
-
-	renderResponse(response: TerminalResponse) {
-		return response.map(part => this.renderResponsePart(part, -1)[0]);
 	}
 
 	render() {
