@@ -241,7 +241,8 @@ const career: Command = {
 				...introItems,
 				indentation(2, [
 					...renderPageIndex(pageNumber - 1),
-					paragraph([hr(), ...buildPageSelector(terminal, pageNumber, totalPages)]),
+					hr(),
+					paragraph(buildPageSelector(terminal, pageNumber, totalPages)),
 				]),
 			];
 		},

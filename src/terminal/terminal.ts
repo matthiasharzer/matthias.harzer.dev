@@ -120,6 +120,7 @@ const button = (text: string, action: () => void, highlightType?: string): Termi
 	highlightType,
 });
 const paragraph = (parts: TerminalItem[]): TerminalParagraph => ({ type: 'paragraph', parts });
+
 const indentation = (level: number, parts: TerminalItem[]): TerminalIndentation => ({
 	type: 'indentation',
 	level,
