@@ -13,6 +13,8 @@ import {
 	text,
 } from '../terminal.ts';
 
+const ENTRIES_PER_PAGE = 3;
+
 interface CareerEntry {
 	title: TerminalItem;
 	startDate: Date;
@@ -22,7 +24,7 @@ interface CareerEntry {
 
 const careerEntries: CareerEntry[] = [
 	{
-		title: link('inovex', 'https://www.inovex.de/', 'inovex'),
+		title: link('inovex GmbH', 'https://www.inovex.de/', 'inovex'),
 		startDate: new Date(2026, 2), // March 2026
 		endDate: new Date(2026, 7), // August 2026
 		description: [
@@ -146,8 +148,6 @@ const formatDateRange = (startDate: Date, endDate?: Date): string => {
 	}
 };
 
-const ENTRIES_PER_PAGE = 3;
-
 const renderEntry = (entry: CareerEntry): TerminalItem => {
 	const items: TerminalItem[] = [];
 	items.push(
@@ -165,8 +165,7 @@ const renderEntry = (entry: CareerEntry): TerminalItem => {
 const renderPageIndex = (page: number): TerminalItem[] => {
 	const startIndex = page * ENTRIES_PER_PAGE;
 	const endIndex = startIndex + ENTRIES_PER_PAGE;
-	const nonFutureEntries = careerEntries.filter(entry => entry.startDate <= new Date() || true);
-	const entries = nonFutureEntries.slice(startIndex, endIndex);
+	const entries = careerEntries.slice(startIndex, endIndex);
 
 	const items: TerminalItem[] = [];
 	entries.forEach((entry, index) => {
