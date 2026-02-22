@@ -110,7 +110,7 @@ export class Terminal extends Component {
 	#suggestionTimeout: number | null = null;
 	#resolvePromptResponse: ((value: string) => void) | null = null;
 	#resizeObserver: ResizeObserver | null = null;
-	#startupCommand: Command | null = commands.career;
+	#startupCommand: Command | null = commands.intro;
 
 	@state() inputDisabled: boolean = false;
 	@state() hidden: boolean = false;
