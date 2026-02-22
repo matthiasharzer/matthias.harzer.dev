@@ -4,16 +4,16 @@ import type { Terminal } from '../Terminal.ts';
 
 interface TerminalPart {
 	type:
-	| 'text'
-	| 'highlight'
-	| 'link'
-	| 'linebreak'
-	| 'button'
-	| 'paragraph'
-	| 'indentation'
-	| 'hover-highlight-block'
-	| 'emoji'
-	| 'component';
+		| 'text'
+		| 'highlight'
+		| 'link'
+		| 'linebreak'
+		| 'button'
+		| 'paragraph'
+		| 'indentation'
+		| 'hover-highlight-block'
+		| 'emoji'
+		| 'component';
 }
 
 interface TerminalText extends TerminalPart {

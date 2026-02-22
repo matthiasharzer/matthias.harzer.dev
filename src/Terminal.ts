@@ -265,7 +265,10 @@ export class Terminal extends Component {
 	disconnectedCallback(): void {
 		super.disconnectedCallback();
 		this.removeEventListener('click', this.#focusInput);
-		this.#suggestionTimeout && clearInterval(this.#suggestionTimeout);
+		if (this.#suggestionTimeout) {
+			clearInterval(this.#suggestionTimeout);
+			this.#suggestionTimeout = null;
+		}
 		this.#resizeObserver?.disconnect();
 	}
 

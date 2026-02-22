@@ -5,7 +5,6 @@ import { Component } from './litutil/Component.ts';
 import { renderResponse, renderResponsePart } from './terminal/renderer.ts';
 import type { TerminalResponse } from './terminal/terminal.ts';
 
-
 export class TerminalResponseItem extends Component {
 	static styles = css`
 		:host {

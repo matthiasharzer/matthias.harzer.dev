@@ -1,5 +1,4 @@
 import type { Terminal } from '../../Terminal.ts';
-import { findCommand, helpCommands } from '../commands.ts';
 import {
 	type Command,
 	highlight,
@@ -29,9 +28,11 @@ class HelpCommand implements Command {
 	isHidden = false;
 	noHelp = false;
 	allCommands: Command[] = [];
+	helpCommands: Command[] = [];
 
-	setAllCommands(commands: Command[]) {
-		this.allCommands = commands;
+	setCommands(allCommands: Command[], helpCommands: Command[]) {
+		this.allCommands = allCommands;
+		this.helpCommands = helpCommands;
 	}
 
 	#findCommand(commandName: string): Command | null {
@@ -42,7 +43,7 @@ class HelpCommand implements Command {
 
 	#overview(terminal: Terminal): TerminalResponse {
 		const commandItems: TerminalItem[] = [text('Available commands:'), linebreak(1)];
-		helpCommands.forEach((cmd, index) => {
+		this.helpCommands.forEach((cmd, index) => {
 			if (index > 0) {
 				commandItems.push(linebreak());
 			}
@@ -72,7 +73,7 @@ class HelpCommand implements Command {
 
 		const commandName = args[0];
 		const remainingArgs = args.slice(1);
-		const command = findCommand(commandName);
+		const command = this.#findCommand(commandName);
 		if (!command) {
 			return [highlight('error:', 'error'), text(` ${commandName}: command not found.`)];
 		}

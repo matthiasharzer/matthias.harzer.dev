@@ -1,7 +1,6 @@
 import { html, type TemplateResult } from 'lit';
 import type { TerminalItem, TerminalResponse } from './terminal.ts';
 
-
 const cutText = (text: string, maxLength: number) => {
 	if (maxLength === -1) {
 		return text;
@@ -12,7 +11,10 @@ const cutText = (text: string, maxLength: number) => {
 	return text.slice(0, maxLength);
 };
 
-const renderResponseParts = (parts: TerminalItem[], maxCharsToRender: number): [TemplateResult[], number] => {
+const renderResponseParts = (
+	parts: TerminalItem[],
+	maxCharsToRender: number,
+): [TemplateResult[], number] => {
 	const renderedParts: TemplateResult[] = [];
 	let charsRendered = 0;
 	let totalLength = 0;
@@ -29,9 +31,12 @@ const renderResponseParts = (parts: TerminalItem[], maxCharsToRender: number): [
 		totalLength += partLength;
 	}
 	return [renderedParts, totalLength];
-}
+};
 
-const renderResponsePart = (part: TerminalItem, maxCharsToRender: number): [TemplateResult, number] => {
+const renderResponsePart = (
+	part: TerminalItem,
+	maxCharsToRender: number,
+): [TemplateResult, number] => {
 	switch (part.type) {
 		case 'text':
 			return [html`${cutText(part.text, maxCharsToRender)}`, part.text.length];
@@ -77,14 +82,10 @@ const renderResponsePart = (part: TerminalItem, maxCharsToRender: number): [Temp
 			return [part.component, 0];
 		}
 	}
-}
+};
 
 const renderResponse = (response: TerminalResponse) => {
 	return response.map(part => renderResponsePart(part, -1)[0]);
-}
-
-export {
-	renderResponse,
-	renderResponsePart,
-	renderResponseParts,
 };
+
+export { renderResponse, renderResponsePart, renderResponseParts };
