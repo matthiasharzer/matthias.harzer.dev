@@ -1,5 +1,4 @@
 import type { Terminal } from '../../Terminal.ts';
-import { visibleCommands } from '../commands.ts';
 import { button, type Command, link, text } from '../terminal.ts';
 
 class WhoamiCommand implements Command {
@@ -9,6 +8,12 @@ class WhoamiCommand implements Command {
 	noHelp = false;
 
 	#counter = 0;
+
+	#visibleCommands: Command[] = [];
+
+	setVisibleCommands(commands: Command[]) {
+		this.#visibleCommands = commands;
+	}
 
 	prepare = (terminal: Terminal) => {
 		return () => {
@@ -21,7 +26,7 @@ class WhoamiCommand implements Command {
 				case 3:
 					return [text(`Stop it.`)];
 				case 4: {
-					const availableCommands = visibleCommands.filter(
+					const availableCommands = this.#visibleCommands.filter(
 						cmd => !['help', 'whoami'].includes(cmd.name),
 					);
 					const randomCommand =
@@ -51,6 +56,6 @@ class WhoamiCommand implements Command {
 	};
 }
 
-const whoami: Command = new WhoamiCommand();
+const whoami = new WhoamiCommand();
 
 export default whoami;

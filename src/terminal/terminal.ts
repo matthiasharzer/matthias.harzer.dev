@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { getFunctionParameters, paramsToString } from '../services/function-params.ts';
 import type { Terminal } from '../Terminal.ts';
 
@@ -120,6 +120,7 @@ const button = (text: string, action: () => void, highlightType?: string): Termi
 	highlightType,
 });
 const paragraph = (parts: TerminalItem[]): TerminalParagraph => ({ type: 'paragraph', parts });
+
 const indentation = (level: number, parts: TerminalItem[]): TerminalIndentation => ({
 	type: 'indentation',
 	level,
@@ -130,6 +131,7 @@ const hoverHighlightBlock = (parts: TerminalItem[]): TerminalHoverHighlightBlock
 	parts,
 });
 const emoji = (emoji: string): TerminalEmoji => ({ type: 'emoji', emoji });
+const hr = (): TerminalComponent => ({ type: 'component', component: html`<hr>` });
 
 const mentionCommandName = (
 	terminal: Terminal,
@@ -182,6 +184,7 @@ export {
 	paragraph,
 	plainCommand,
 	text,
+	hr,
 };
 export type {
 	Command,
