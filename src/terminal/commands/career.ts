@@ -218,7 +218,10 @@ const career: Command = {
 	prepare:
 		terminal =>
 		(page: string = '1') => {
-			const pageNumber = Number.parseInt(page, 10) || 1;
+			const pageNumber = Number.parseInt(page, 10);
+			if (Number.isNaN(pageNumber)) {
+				return [text('Invalid page number. Please enter a valid number.')];
+			}
 			const totalPages = Math.ceil(careerEntries.length / ENTRIES_PER_PAGE);
 
 			if (pageNumber < 1 || pageNumber > totalPages) {
