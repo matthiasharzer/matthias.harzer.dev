@@ -13,7 +13,9 @@ interface TerminalPart {
 		| 'indentation'
 		| 'hover-highlight-block'
 		| 'emoji'
-		| 'component';
+		| 'component'
+		| 'inline-image'
+		| 'inline';
 }
 
 interface TerminalText extends TerminalPart {
@@ -29,7 +31,7 @@ interface TerminalHighlight extends TerminalPart {
 
 interface TerminalLink extends TerminalPart {
 	type: 'link';
-	text: string;
+	text: TerminalItem;
 	href: string;
 	highlightType?: string;
 }
@@ -72,6 +74,17 @@ interface TerminalComponent extends TerminalPart {
 	component: TemplateResult; // a Lit template
 }
 
+interface TerminalInlineImage extends TerminalPart {
+	type: 'inline-image';
+	src: string;
+	alt?: string;
+}
+
+interface TerminalInline extends TerminalPart {
+	type: 'inline';
+	parts: TerminalItem[];
+}
+
 type TerminalItem =
 	| TerminalText
 	| TerminalHighlight
@@ -82,7 +95,10 @@ type TerminalItem =
 	| TerminalIndentation
 	| TerminalHoverHighlightBlock
 	| TerminalEmoji
-	| TerminalComponent;
+	| TerminalComponent
+	| TerminalInlineImage
+	| TerminalInline
+	| string;
 
 type TerminalResponse = TerminalItem[];
 
@@ -106,12 +122,14 @@ const highlight = (text: string, highlightType?: string): TerminalHighlight => (
 	text,
 	highlightType,
 });
-const link = (text: string, href: string, highlightType?: string): TerminalLink => ({
-	type: 'link',
-	text,
-	href,
-	highlightType,
-});
+const link = (text: TerminalItem, href: string, highlightType?: string): TerminalLink => {
+	return {
+		type: 'link',
+		text: text,
+		href,
+		highlightType,
+	};
+};
 const linebreak = (height?: number): TerminalLinebreak => ({ type: 'linebreak', height });
 const button = (text: string, action: () => void, highlightType?: string): TerminalButton => ({
 	type: 'button',
@@ -170,6 +188,17 @@ const component = (component: TemplateResult): TerminalComponent => ({
 
 const plainCommand = (fn: (...args: string[]) => TerminalResponse) => () => fn;
 
+const inlineImage = (src: string, alt?: string): TerminalInlineImage => ({
+	type: 'inline-image',
+	src,
+	alt,
+});
+
+const inline = (parts: TerminalItem[]): TerminalInline => ({
+	type: 'inline',
+	parts,
+});
+
 export {
 	button,
 	component,
@@ -185,12 +214,16 @@ export {
 	plainCommand,
 	text,
 	hr,
+	inlineImage,
+	inline,
 };
 export type {
 	Command,
 	TerminalButton,
 	TerminalComponent,
 	TerminalEmoji,
+	TerminalInline,
+	TerminalInlineImage,
 	TerminalFunction,
 	TerminalHighlight,
 	TerminalHoverHighlightBlock,

@@ -37,6 +37,10 @@ const renderResponsePart = (
 	part: TerminalItem,
 	maxCharsToRender: number,
 ): [TemplateResult, number] => {
+	if (typeof part === 'string') {
+		return [html`${cutText(part, maxCharsToRender)}`, part.length];
+	}
+
 	switch (part.type) {
 		case 'text':
 			return [html`${cutText(part.text, maxCharsToRender)}`, part.text.length];
@@ -45,11 +49,13 @@ const renderResponsePart = (
 				html`<span class="highlight ${part.highlightType ?? ''}">${cutText(part.text, maxCharsToRender)}</span>`,
 				part.text.length,
 			];
-		case 'link':
+		case 'link': {
+			const [renderedPartText, totalLength] = renderResponsePart(part.text, maxCharsToRender);
 			return [
-				html`<a class="highlight ${part.highlightType ?? ''}" href="${part.href}" target="_blank" rel="noopener">${cutText(part.text, maxCharsToRender)}</a>`,
-				part.text.length,
+				html`<a class="highlight ${part.highlightType ?? ''}" href="${part.href}" target="_blank" rel="noopener">${renderedPartText}</a>`,
+				totalLength,
 			];
+		}
 		case 'linebreak':
 			return [html`<div class="linebreak" style="height: ${part.height ?? 0}em;"></div>`, 1];
 		case 'button': {
@@ -80,6 +86,16 @@ const renderResponsePart = (
 		}
 		case 'component': {
 			return [part.component, 0];
+		}
+		case 'inline-image': {
+			return [
+				html`<img src="${part.src}" alt="${part.alt ?? ''}" class="terminal-inline-image"  />`,
+				0,
+			];
+		}
+		case 'inline': {
+			const [renderedParts, totalLength] = renderResponseParts(part.parts, maxCharsToRender);
+			return [html`${renderedParts}`, totalLength];
 		}
 	}
 };

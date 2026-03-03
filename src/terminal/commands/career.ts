@@ -6,6 +6,8 @@ import {
 	hoverHighlightBlock,
 	hr,
 	indentation,
+	inline,
+	inlineImage,
 	linebreak,
 	link,
 	paragraph,
@@ -17,6 +19,7 @@ const ENTRIES_PER_PAGE = 3;
 
 interface CareerEntry {
 	title: TerminalItem;
+	icon?: string;
 	startDate: Date;
 	endDate?: Date;
 	description: TerminalItem[];
@@ -24,7 +27,12 @@ interface CareerEntry {
 
 const careerEntries: CareerEntry[] = [
 	{
-		title: link('inovex GmbH', 'https://www.inovex.de/', 'inovex'),
+		title: link(
+			inline(['inovex GmbH', inlineImage('assets/images/inovex.png')]),
+			'https://www.inovex.de/',
+			'inovex',
+		),
+		icon: 'inovex.png',
 		startDate: new Date(2026, 2), // March 2026
 		endDate: new Date(2026, 7), // August 2026
 		description: [
@@ -37,7 +45,11 @@ const careerEntries: CareerEntry[] = [
 		],
 	},
 	{
-		title: link('Hochschule Karlsruhe', 'https://www.h-ka.de/', 'hka'),
+		title: link(
+			inline(['Hochschule Karlsruhe', inlineImage('assets/images/hka.png')]),
+			'https://www.h-ka.de/',
+			'hka',
+		),
 		startDate: new Date(2025, 9), // October 2025
 		endDate: new Date(2026, 1), // February 2026
 		description: [
@@ -58,7 +70,11 @@ const careerEntries: CareerEntry[] = [
 		],
 	},
 	{
-		title: link('the native web GmbH', 'https://thenativeweb.io/', 'thenativeweb'),
+		title: link(
+			inline(['the native web GmbH', inlineImage('assets/images/tnw.png')]),
+			'https://thenativeweb.io/',
+			'thenativeweb',
+		),
 		startDate: new Date(2024, 4), // May 2024
 		endDate: new Date(2025, 6), // July 2025
 		description: [
@@ -89,7 +105,11 @@ const careerEntries: CareerEntry[] = [
 		],
 	},
 	{
-		title: link('Karlsruhe Institute of Technology', 'https://www.kit.edu/', 'kit'),
+		title: link(
+			inline(['Karlsruhe Institute of Technology', inlineImage('assets/images/kit.png')]),
+			'https://www.kit.edu/',
+			'kit',
+		),
 		startDate: new Date(2023, 5), // June 2023
 		endDate: new Date(2024, 1), // February 2024
 		description: [
@@ -153,7 +173,7 @@ const renderEntry = (entry: CareerEntry): TerminalItem => {
 	items.push(
 		paragraph([
 			entry.title,
-			highlight(` (${formatDateRange(entry.startDate, entry.endDate)})`, 'career-dates'),
+			highlight(`(${formatDateRange(entry.startDate, entry.endDate)})`, 'career-dates'),
 		]),
 	);
 	entry.description.forEach(desc => {
