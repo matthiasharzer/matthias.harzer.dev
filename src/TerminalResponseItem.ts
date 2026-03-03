@@ -79,7 +79,7 @@ export class TerminalResponseItem extends Component {
 
 			&.nextjs {
 				color: #000000;
-				  text-shadow: -1px -1px 0 #808080, 1px -1px 0 #808080, -1px 1px 0 #808080, 1px 1px 0 #808080;
+				text-shadow: -1px -1px 0 #808080, 1px -1px 0 #808080, -1px 1px 0 #808080, 1px 1px 0 #808080;
 			}
 
 			&.java {
@@ -133,6 +133,13 @@ export class TerminalResponseItem extends Component {
 
 			&.thenativeweb {
 				color: #dd0099;
+			}
+
+			&.inovex {
+				color: #051c59 ;
+				--shadow-color: hsl(223.57, 19.36%, 28.43%);
+				text-shadow: -1px -1px 0 var(--shadow-color), 1px -1px 0 var(--shadow-color), -1px 1px 0 var(--shadow-color), 1px 1px 0 var(--shadow-color);
+
 			}
 
 			&.cqrs {
