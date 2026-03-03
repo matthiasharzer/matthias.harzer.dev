@@ -34,13 +34,14 @@ const commands = {
 
 const allCommands: Command[] = Object.values(commands);
 
+const visibleCommands = allCommands.filter(cmd => !cmd.isHidden);
+const helpCommands = allCommands.filter(cmd => !cmd.noHelp);
+
 // The help commands need to know all commands to provide help for them
 // This is suboptimal, since this introduces special treatment for the help command
 // but it avoids a circular dependency (commands.ts -> help.ts -> commands.ts)
-help.setAllCommands(allCommands);
-
-const visibleCommands = allCommands.filter(cmd => !cmd.isHidden);
-const helpCommands = allCommands.filter(cmd => !cmd.noHelp);
+help.setCommands(allCommands, helpCommands);
+whoami.setVisibleCommands(visibleCommands);
 
 const findCommand = (name: string): Command | null => {
 	return allCommands.find(cmd => cmd.name.toLowerCase() === name.toLowerCase()) ?? null;
