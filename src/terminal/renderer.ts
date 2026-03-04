@@ -90,7 +90,7 @@ const renderResponsePart = (
 		case 'inline-image': {
 			return [
 				html`<img src="${part.src}" alt="${part.alt ?? ''}" class="terminal-inline-image"  />`,
-				0,
+				1,
 			];
 		}
 		case 'group': {

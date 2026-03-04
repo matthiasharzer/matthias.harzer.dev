@@ -165,7 +165,7 @@ const formatDateRange = (startDate: Date, endDate?: Date): string => {
 	}
 
 	if (endOfMonth < today) {
-		return `${formatDate(startDate)} - ${formatDate(endDate)}`;
+		return `${formatDate(startDate)} – ${formatDate(endDate)}`;
 	} else {
 		return `since ${formatDate(startDate)}`;
 	}
@@ -176,7 +176,7 @@ const renderTitle = (entry: CareerEntry): TerminalItem => {
 
 	if (entry.icon) {
 		items.push(
-			inlineImage(`assets/images/${entry.icon}`, {
+			inlineImage(`./assets/images/${entry.icon}`, {
 				paddingX: 0.5,
 				alt: entry.title,
 			}),

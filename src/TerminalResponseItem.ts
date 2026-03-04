@@ -35,6 +35,7 @@ export class TerminalResponseItem extends Component {
 
 		.highlight {
 			color: #fd63f8;
+			--shadow-color: transparent;
 			text-shadow: -1px -1px 0 var(--shadow-color), 1px -1px 0 var(--shadow-color), -1px 1px 0 var(--shadow-color), 1px 1px 0 var(--shadow-color);
 
 			&.underline {
