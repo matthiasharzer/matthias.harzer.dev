@@ -2,10 +2,12 @@ import type { Terminal } from '../../Terminal.ts';
 import {
 	button,
 	type Command,
+	group,
 	highlight,
 	hoverHighlightBlock,
 	hr,
 	indentation,
+	inlineImage,
 	linebreak,
 	link,
 	paragraph,
@@ -16,7 +18,10 @@ import {
 const ENTRIES_PER_PAGE = 3;
 
 interface CareerEntry {
-	title: TerminalItem;
+	title: string;
+	url?: string;
+	highlightType?: string;
+	icon?: string;
 	startDate: Date;
 	endDate?: Date;
 	description: TerminalItem[];
@@ -24,20 +29,32 @@ interface CareerEntry {
 
 const careerEntries: CareerEntry[] = [
 	{
-		title: link('inovex GmbH', 'https://www.inovex.de/', 'inovex'),
+		title: 'inovex',
+		highlightType: 'inovex',
+		url: 'https://www.inovex.de/',
+		icon: 'inovex.png',
 		startDate: new Date(2026, 2), // March 2026
 		endDate: new Date(2026, 7), // August 2026
 		description: [
 			paragraph([
 				text(
-					'Internship in IT Engineering & Operations with a focus on agile software development.',
+					'Internship in IT Engineering & Operations with a focus on agile software development and ',
 				),
+				link(
+					'infrastructure as code',
+					'https://www.redhat.com/en/topics/automation/what-is-infrastructure-as-code-iac',
+					'infrastructure-as-code',
+				),
+				text('.'),
 				// text('Implementation of project infrastructure, including build pipelines and automated testing within a Scrum process.')
 			]),
 		],
 	},
 	{
-		title: link('Hochschule Karlsruhe', 'https://www.h-ka.de/', 'hka'),
+		title: 'Hochschule Karlsruhe',
+		highlightType: 'hka',
+		icon: 'hka.png',
+		url: 'https://www.h-ka.de/',
 		startDate: new Date(2025, 9), // October 2025
 		endDate: new Date(2026, 1), // February 2026
 		description: [
@@ -58,7 +75,10 @@ const careerEntries: CareerEntry[] = [
 		],
 	},
 	{
-		title: link('the native web GmbH', 'https://thenativeweb.io/', 'thenativeweb'),
+		title: 'the native web GmbH',
+		icon: 'tnw.png',
+		url: 'https://thenativeweb.io/',
+		highlightType: 'thenativeweb',
 		startDate: new Date(2024, 4), // May 2024
 		endDate: new Date(2025, 6), // July 2025
 		description: [
@@ -89,7 +109,10 @@ const careerEntries: CareerEntry[] = [
 		],
 	},
 	{
-		title: link('Karlsruhe Institute of Technology', 'https://www.kit.edu/', 'kit'),
+		title: 'Karlsruhe Institute of Technology',
+		icon: 'kit.png',
+		highlightType: 'kit',
+		url: 'https://www.kit.edu/',
 		startDate: new Date(2023, 5), // June 2023
 		endDate: new Date(2024, 1), // February 2024
 		description: [
@@ -142,17 +165,39 @@ const formatDateRange = (startDate: Date, endDate?: Date): string => {
 	}
 
 	if (endOfMonth < today) {
-		return `${formatDate(startDate)} - ${formatDate(endDate)}`;
+		return `${formatDate(startDate)} – ${formatDate(endDate)}`;
 	} else {
 		return `since ${formatDate(startDate)}`;
 	}
 };
 
+const renderTitle = (entry: CareerEntry): TerminalItem => {
+	const items: TerminalItem[] = [highlight(entry.title, entry.highlightType)];
+
+	if (entry.icon) {
+		items.push(
+			inlineImage(`./assets/images/${entry.icon}`, {
+				paddingX: 0.5,
+				alt: entry.title,
+			}),
+		);
+	}
+
+	if (entry.url) {
+		return link(group(items), entry.url, entry.highlightType);
+	} else {
+		return group(items);
+	}
+};
+
 const renderEntry = (entry: CareerEntry): TerminalItem => {
 	const items: TerminalItem[] = [];
+
+	const titleItem = renderTitle(entry);
+
 	items.push(
 		paragraph([
-			entry.title,
+			titleItem,
 			highlight(` (${formatDateRange(entry.startDate, entry.endDate)})`, 'career-dates'),
 		]),
 	);

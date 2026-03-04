@@ -35,6 +35,8 @@ export class TerminalResponseItem extends Component {
 
 		.highlight {
 			color: #fd63f8;
+			--shadow-color: transparent;
+			text-shadow: -1px -1px 0 var(--shadow-color), 1px -1px 0 var(--shadow-color), -1px 1px 0 var(--shadow-color), 1px 1px 0 var(--shadow-color);
 
 			&.underline {
 				color: inherit;
@@ -75,7 +77,7 @@ export class TerminalResponseItem extends Component {
 
 			&.nextjs {
 				color: #000000;
-				  text-shadow: -1px -1px 0 #808080, 1px -1px 0 #808080, -1px 1px 0 #808080, 1px 1px 0 #808080;
+				--shadow-color: #888888;
 			}
 
 			&.java {
@@ -132,7 +134,13 @@ export class TerminalResponseItem extends Component {
 			}
 
 			&.inovex {
-				color: #30a7e7;
+				letter-spacing: 0.05em;
+				color: #051c59 ;
+				--shadow-color: hsl(223.57, 9.36%, 32.43%);
+			}
+
+			&.infrastructure-as-code {
+				color: #ff5555;
 			}
 
 			&.cqrs {
@@ -262,6 +270,15 @@ export class TerminalResponseItem extends Component {
 			image-rendering: -o-crisp-edges;
 			image-rendering: -webkit-optimize-contrast;
 			image-rendering: optimize-contrast;
+		}
+
+		.terminal-inline-image {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 0.8em;
+			vertical-align: middle;
+			margin: 0 0.2em 0.2em 0.4em;
+			filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.2));
 		}
 	`;
 
