@@ -15,7 +15,7 @@ interface TerminalPart {
 		| 'emoji'
 		| 'component'
 		| 'inline-image'
-		| 'inline';
+		| 'group';
 }
 
 interface TerminalText extends TerminalPart {
@@ -78,10 +78,11 @@ interface TerminalInlineImage extends TerminalPart {
 	type: 'inline-image';
 	src: string;
 	alt?: string;
+	paddingX?: number;
 }
 
-interface TerminalInline extends TerminalPart {
-	type: 'inline';
+interface TerminalGroup extends TerminalPart {
+	type: 'group';
 	parts: TerminalItem[];
 }
 
@@ -97,7 +98,7 @@ type TerminalItem =
 	| TerminalEmoji
 	| TerminalComponent
 	| TerminalInlineImage
-	| TerminalInline
+	| TerminalGroup
 	| string;
 
 type TerminalResponse = TerminalItem[];
@@ -188,14 +189,19 @@ const component = (component: TemplateResult): TerminalComponent => ({
 
 const plainCommand = (fn: (...args: string[]) => TerminalResponse) => () => fn;
 
-const inlineImage = (src: string, alt?: string): TerminalInlineImage => ({
+interface InlineImageOptions {
+	paddingX?: number;
+	alt?: string;
+}
+const inlineImage = (src: string, options?: InlineImageOptions): TerminalInlineImage => ({
 	type: 'inline-image',
 	src,
-	alt,
+	alt: options?.alt,
+	paddingX: options?.paddingX,
 });
 
-const inline = (parts: TerminalItem[]): TerminalInline => ({
-	type: 'inline',
+const group = (parts: TerminalItem[]): TerminalGroup => ({
+	type: 'group',
 	parts,
 });
 
@@ -215,14 +221,14 @@ export {
 	text,
 	hr,
 	inlineImage,
-	inline,
+	group,
 };
 export type {
 	Command,
 	TerminalButton,
 	TerminalComponent,
 	TerminalEmoji,
-	TerminalInline,
+	TerminalGroup,
 	TerminalInlineImage,
 	TerminalFunction,
 	TerminalHighlight,

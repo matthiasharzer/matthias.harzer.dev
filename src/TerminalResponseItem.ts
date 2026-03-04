@@ -133,8 +133,13 @@ export class TerminalResponseItem extends Component {
 			}
 
 			&.inovex {
+				letter-spacing: 0.05em;
 				color: #051c59 ;
-				--shadow-color: hsl(223.57, 19.36%, 28.43%);
+				--shadow-color: hsl(223.57, 9.36%, 32.43%);
+			}
+
+			&.infrastructure-as-code {
+				color: #ff5555;
 			}
 
 			&.cqrs {

@@ -93,7 +93,7 @@ const renderResponsePart = (
 				0,
 			];
 		}
-		case 'inline': {
+		case 'group': {
 			const [renderedParts, totalLength] = renderResponseParts(part.parts, maxCharsToRender);
 			return [html`${renderedParts}`, totalLength];
 		}
