@@ -219,7 +219,6 @@ const list = (
 	};
 };
 
-
 const grid = (cols: number, items: TerminalItem[]): TerminalGrid => ({
 	type: 'grid',
 	numCols: cols,
