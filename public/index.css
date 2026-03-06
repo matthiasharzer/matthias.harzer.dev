@@ -8,9 +8,14 @@
 	src: url(./assets/fonts/VT323-Regular.ttf);
 }
 
+* {
+	line-height: 1;
+}
+
 body {
 	-webkit-font-smoothing: antialiased;
 	--border-color: #44475a;
+	--terminal-bg-color: #1e1e1e;
 	display: flex;
 	justify-content: center;
 	align-items: center;

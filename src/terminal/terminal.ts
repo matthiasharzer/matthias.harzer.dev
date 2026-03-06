@@ -3,19 +3,7 @@ import { getFunctionParameters, paramsToString } from '../services/function-para
 import type { Terminal } from '../Terminal.ts';
 
 interface TerminalPart {
-	type:
-		| 'text'
-		| 'highlight'
-		| 'link'
-		| 'linebreak'
-		| 'button'
-		| 'paragraph'
-		| 'indentation'
-		| 'hover-highlight-block'
-		| 'emoji'
-		| 'component'
-		| 'inline-image'
-		| 'group';
+	type: string;
 }
 
 interface TerminalText extends TerminalPart {
@@ -86,7 +74,19 @@ interface TerminalGroup extends TerminalPart {
 	parts: TerminalItem[];
 }
 
-type TerminalItem =
+interface TerminalList extends TerminalPart {
+	type: 'list';
+	items: TerminalItem[];
+	style: 'unordered' | 'ordered';
+}
+
+interface TerminalGrid extends TerminalPart {
+	type: 'grid';
+	numCols: number;
+	items: TerminalItem[]; // items are filled row by row
+}
+
+type TerminalAdvancedItem =
 	| TerminalText
 	| TerminalHighlight
 	| TerminalLink
@@ -99,7 +99,10 @@ type TerminalItem =
 	| TerminalComponent
 	| TerminalInlineImage
 	| TerminalGroup
-	| string;
+	| TerminalList
+	| TerminalGrid;
+
+type TerminalItem = TerminalAdvancedItem | string;
 
 type TerminalResponse = TerminalItem[];
 
@@ -205,6 +208,23 @@ const group = (parts: TerminalItem[]): TerminalGroup => ({
 	parts,
 });
 
+const list = (
+	items: TerminalItem[],
+	style: 'unordered' | 'ordered' = 'unordered',
+): TerminalList => {
+	return {
+		type: 'list',
+		items,
+		style,
+	};
+};
+
+const grid = (cols: number, items: TerminalItem[]): TerminalGrid => ({
+	type: 'grid',
+	numCols: cols,
+	items,
+});
+
 export {
 	button,
 	component,
@@ -222,6 +242,8 @@ export {
 	hr,
 	inlineImage,
 	group,
+	list,
+	grid,
 };
 export type {
 	Command,
@@ -240,4 +262,6 @@ export type {
 	TerminalParagraph,
 	TerminalResponse,
 	TerminalText,
+	TerminalList,
+	TerminalGrid,
 };

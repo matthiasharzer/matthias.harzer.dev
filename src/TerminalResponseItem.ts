@@ -64,7 +64,12 @@ export class TerminalResponseItem extends Component {
 			}
 
 			&.python {
-				color: #3572a5;
+				background: linear-gradient(135deg, #3873a3 0%, #3873a3 49%, #ffdf76 50%, #ffdf76 100%);
+				-webkit-background-clip: text;
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+
+				--underline-color: #3873a3;
 			}
 
 			&.flutter {
@@ -78,6 +83,7 @@ export class TerminalResponseItem extends Component {
 			&.nextjs {
 				color: #000000;
 				--shadow-color: #888888;
+				--underline-color: #888888;
 			}
 
 			&.java {
@@ -93,7 +99,7 @@ export class TerminalResponseItem extends Component {
 			}
 
 			&.rainbow {
-				background: linear-gradient(90deg,
+				background-image: linear-gradient(90deg,
 						#ff2c55,
 						#ff6555,
 						#ffaa55,
@@ -137,6 +143,7 @@ export class TerminalResponseItem extends Component {
 				letter-spacing: 0.05em;
 				color: #051c59 ;
 				--shadow-color: hsl(223.57, 9.36%, 32.43%);
+				--underline-color: hsl(223.57, 9.36%, 32.43%);
 			}
 
 			&.infrastructure-as-code {
@@ -166,6 +173,52 @@ export class TerminalResponseItem extends Component {
 				color: #009682;
 			}
 
+			&.docker {
+				color: #2496ed;
+			}
+
+			&.cicd {
+				color: #ff79c6;
+			}
+
+			&.typescript {
+				color: #3178c6;
+			}
+
+			&.git {
+				color: #f34f29;
+			}
+
+			&.figma {
+				--underline-color: #ff3737;
+
+				.f {
+					color: #ff3737;
+				}
+				.i {
+					color: #ff7237;
+				}
+				.g {
+					color: #874fff;
+				}
+				.m {
+					color: #00b6ff;
+				}
+				.a {
+					color: #24cb71;
+				}
+			}
+
+			&.firebase {
+				color: #ffcb2b;
+			}
+
+			&.linux {
+				color: #000000;
+				--shadow-color: #888888;
+				--underline-color: #888888;
+			}
+
 			&.career-dates {
 				color: #757575;
   			font-weight: lighter;
@@ -187,9 +240,10 @@ export class TerminalResponseItem extends Component {
 
 		a, button {
 			position: relative;
+			--underline-color: currentColor;
 
 			text-decoration: none;
-			background-image: linear-gradient(currentColor, currentColor);
+			background-image: linear-gradient(var(--underline-color), var(--underline-color));
 			background-position: 0% 100%;
 			background-repeat: no-repeat;
 			background-size: 0% 2px;
@@ -279,6 +333,48 @@ export class TerminalResponseItem extends Component {
 			vertical-align: middle;
 			margin: 0 0.2em 0.2em 0.4em;
 			filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.2));
+		}
+
+		ul {
+			list-style: none;
+			padding-left: 1.5em;
+
+			li {
+				position: relative;
+				padding-left: 0.75em;
+
+
+				&::before {
+					content: '-';
+					position: absolute;
+					left: 0;
+					top: 0;
+				}
+			}
+		}
+
+		ol {
+			list-style: none;
+			padding-left: 1.5em;
+			counter-reset: item;
+
+			li {
+				position: relative;
+				padding-left: 0.75em;
+
+				&::before {
+					content: counter(item) '.';
+					counter-increment: item;
+					position: absolute;
+					left: 0;
+					top: 0;
+				}
+			}
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(var(--num-cols), 1fr);
 		}
 	`;
 
