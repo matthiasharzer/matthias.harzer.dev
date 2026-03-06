@@ -3,20 +3,7 @@ import { getFunctionParameters, paramsToString } from '../services/function-para
 import type { Terminal } from '../Terminal.ts';
 
 interface TerminalPart {
-	type:
-		| 'text'
-		| 'highlight'
-		| 'link'
-		| 'linebreak'
-		| 'button'
-		| 'paragraph'
-		| 'indentation'
-		| 'hover-highlight-block'
-		| 'emoji'
-		| 'component'
-		| 'inline-image'
-		| 'group'
-		| 'list';
+	type: string;
 }
 
 interface TerminalText extends TerminalPart {
@@ -93,7 +80,13 @@ interface TerminalList extends TerminalPart {
 	style: 'unordered' | 'ordered';
 }
 
-type TerminalItem =
+interface TerminalGrid extends TerminalPart {
+	type: 'grid';
+	numCols: number;
+	items: TerminalItem[]; // items are filled row by row
+}
+
+type TerminalAdvancedItem =
 	| TerminalText
 	| TerminalHighlight
 	| TerminalLink
@@ -107,7 +100,9 @@ type TerminalItem =
 	| TerminalInlineImage
 	| TerminalGroup
 	| TerminalList
-	| string;
+	| TerminalGrid;
+
+type TerminalItem = TerminalAdvancedItem | string;
 
 type TerminalResponse = TerminalItem[];
 
@@ -224,6 +219,13 @@ const list = (
 	};
 };
 
+
+const grid = (cols: number, items: TerminalItem[]): TerminalGrid => ({
+	type: 'grid',
+	numCols: cols,
+	items,
+});
+
 export {
 	button,
 	component,
@@ -242,6 +244,7 @@ export {
 	inlineImage,
 	group,
 	list,
+	grid,
 };
 export type {
 	Command,
@@ -261,4 +264,5 @@ export type {
 	TerminalResponse,
 	TerminalText,
 	TerminalList,
+	TerminalGrid,
 };

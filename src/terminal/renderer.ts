@@ -111,6 +111,18 @@ const renderResponsePart = (
 				return [html`<ol>${renderedParts}</ol>`, totalLength];
 			}
 		}
+		case 'grid': {
+			const [items, totalLength] = renderResponseParts(
+				part.items,
+				maxCharsToRender,
+				renderedPart => html`<div class="grid-item">${renderedPart}</div>`,
+			);
+
+			return [
+				html`<div class="grid" style="--num-cols: ${part.numCols};">${items}</div>`,
+				totalLength,
+			];
+		}
 	}
 };
 

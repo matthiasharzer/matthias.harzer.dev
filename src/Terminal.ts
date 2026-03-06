@@ -28,10 +28,12 @@ export class Terminal extends Component {
 			height: 100%;
 			max-width: 890px;
 			max-height: 590px;
+
+
 		}
 
 		.terminal {
-			background-color: #1e1e1e;
+			background-color: var(--terminal-bg-color);
 			color: rgb(218, 218, 218);
 			font-family: VT323, monospace;
 			border: 4px solid var(--border-color);

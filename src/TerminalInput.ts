@@ -22,6 +22,7 @@ export class TerminalInput extends Component {
 	#historyIndex = -1;
 	#suggestions: string[] = [];
 	#suggestionIndex = -1;
+	#pressedKeys = new Set<string>();
 
 	@property({ type: Boolean }) disabled = false;
 
@@ -57,6 +58,7 @@ export class TerminalInput extends Component {
 
 	#onKeydown(event: KeyboardEvent) {
 		if (this.disabled) return;
+		this.#pressedKeys.add(event.key);
 		switch (event.key) {
 			case 'Tab': {
 				this.handleSuggestions();
@@ -93,11 +95,23 @@ export class TerminalInput extends Component {
 				event.preventDefault();
 				break;
 			}
+			case 'c': {
+				if (this.#pressedKeys.has('Control')) {
+					this.#input.value = '';
+					this.#historyIndex = this.#history.length;
+					event.preventDefault();
+				}
+				break;
+			}
 			default: {
 				this.#suggestionIndex = -1;
 				break;
 			}
 		}
+	}
+
+	#onKeyup(event: KeyboardEvent) {
+		this.#pressedKeys.delete(event.key);
 	}
 
 	#writePlaceholder(text: string, baseCharDelayMs: number, maxVariableDelayMs: number) {
@@ -150,6 +164,7 @@ export class TerminalInput extends Component {
 				<input
 					${ref(this.#inputRef)}
 					@keydown=${this.#onKeydown}
+					@keyup=${this.#onKeyup}
 					type="text"
 					id="terminal-input"
 					autocomplete="off"
