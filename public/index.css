@@ -8,6 +8,10 @@
 	src: url(./assets/fonts/VT323-Regular.ttf);
 }
 
+* {
+	line-height: 1;
+}
+
 body {
 	-webkit-font-smoothing: antialiased;
 	--border-color: #44475a;
