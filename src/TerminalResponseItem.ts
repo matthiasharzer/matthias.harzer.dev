@@ -351,12 +351,23 @@ export class TerminalResponseItem extends Component {
 					top: 0;
 				}
 			}
-			&.ordered {
-				li {
-					&::before {
-						content: counter(item) '.';
-						counter-increment: item;
-					}
+		}
+
+		ol {
+			list-style: none;
+			padding-left: 1.5em;
+			counter-reset: item;
+
+			li {
+				position: relative;
+				padding-left: 0.75em;
+
+				&::before {
+					content: counter(item) '.';
+					counter-increment: item;
+					position: absolute;
+					left: 0;
+					top: 0;
 				}
 			}
 		}

@@ -4,7 +4,6 @@ import {
 	group,
 	highlight,
 	hoverHighlightBlock,
-	linebreak,
 	link,
 	list,
 	paragraph,
@@ -42,7 +41,6 @@ const tech: Command = {
 						list(
 							[
 								link('Go', 'https://go.dev/', 'go'),
-								linebreak(),
 								group([
 									link('FastAPI', 'https://fastapi.tiangolo.com/', 'fastapi'),
 									text(' / '),

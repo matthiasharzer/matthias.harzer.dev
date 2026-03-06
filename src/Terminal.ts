@@ -28,8 +28,6 @@ export class Terminal extends Component {
 			height: 100%;
 			max-width: 890px;
 			max-height: 590px;
-
-
 		}
 
 		.terminal {

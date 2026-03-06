@@ -59,7 +59,7 @@ export class TerminalInput extends Component {
 	#onKeydown(event: KeyboardEvent) {
 		if (this.disabled) return;
 		this.#pressedKeys.add(event.key);
-		switch (event.key) {
+		switch (event.code) {
 			case 'Tab': {
 				this.handleSuggestions();
 				event.preventDefault();
@@ -95,7 +95,7 @@ export class TerminalInput extends Component {
 				event.preventDefault();
 				break;
 			}
-			case 'c': {
+			case 'KeyC': {
 				if (this.#pressedKeys.has('Control')) {
 					this.#input.value = '';
 					this.#historyIndex = this.#history.length;
