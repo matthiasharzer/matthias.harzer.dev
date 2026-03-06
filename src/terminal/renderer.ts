@@ -14,6 +14,7 @@ const cutText = (text: string, maxLength: number) => {
 const renderResponseParts = (
 	parts: TerminalItem[],
 	maxCharsToRender: number,
+	postProcessPart?: (part: TemplateResult) => TemplateResult,
 ): [TemplateResult[], number] => {
 	const renderedParts: TemplateResult[] = [];
 	let charsRendered = 0;
@@ -24,7 +25,8 @@ const renderResponseParts = (
 			maxCharsToRender === -1 ? -1 : maxCharsToRender - charsRendered,
 		);
 		if (charsRendered < maxCharsToRender || maxCharsToRender === -1) {
-			renderedParts.push(renderedPart);
+			const finalPart = postProcessPart ? postProcessPart(renderedPart) : renderedPart;
+			renderedParts.push(finalPart);
 			charsRendered += partLength;
 		}
 
@@ -96,6 +98,18 @@ const renderResponsePart = (
 		case 'group': {
 			const [renderedParts, totalLength] = renderResponseParts(part.parts, maxCharsToRender);
 			return [html`${renderedParts}`, totalLength];
+		}
+		case 'list': {
+			const [renderedParts, totalLength] = renderResponseParts(
+				part.items,
+				maxCharsToRender,
+				renderedPart => html`<li>${renderedPart}</li>`,
+			);
+			if (part.style === 'unordered') {
+				return [html`<ul>${renderedParts}</ul>`, totalLength];
+			} else {
+				return [html`<ol>${renderedParts}</ol>`, totalLength];
+			}
 		}
 	}
 };

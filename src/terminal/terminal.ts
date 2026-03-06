@@ -15,7 +15,8 @@ interface TerminalPart {
 		| 'emoji'
 		| 'component'
 		| 'inline-image'
-		| 'group';
+		| 'group'
+		| 'list';
 }
 
 interface TerminalText extends TerminalPart {
@@ -86,6 +87,12 @@ interface TerminalGroup extends TerminalPart {
 	parts: TerminalItem[];
 }
 
+interface TerminalList extends TerminalPart {
+	type: 'list';
+	items: TerminalItem[];
+	style: 'unordered' | 'ordered';
+}
+
 type TerminalItem =
 	| TerminalText
 	| TerminalHighlight
@@ -99,6 +106,7 @@ type TerminalItem =
 	| TerminalComponent
 	| TerminalInlineImage
 	| TerminalGroup
+	| TerminalList
 	| string;
 
 type TerminalResponse = TerminalItem[];
@@ -205,6 +213,17 @@ const group = (parts: TerminalItem[]): TerminalGroup => ({
 	parts,
 });
 
+const list = (
+	items: TerminalItem[],
+	style: 'unordered' | 'ordered' = 'unordered',
+): TerminalList => {
+	return {
+		type: 'list',
+		items,
+		style,
+	};
+};
+
 export {
 	button,
 	component,
@@ -222,6 +241,7 @@ export {
 	hr,
 	inlineImage,
 	group,
+	list,
 };
 export type {
 	Command,
@@ -240,4 +260,5 @@ export type {
 	TerminalParagraph,
 	TerminalResponse,
 	TerminalText,
+	TerminalList,
 };

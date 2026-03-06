@@ -166,6 +166,18 @@ export class TerminalResponseItem extends Component {
 				color: #009682;
 			}
 
+			&.docker {
+				color: #2496ed;
+			}
+
+			&.cicd {
+				color: #ff79c6;
+			}
+
+			&.typescript {
+				color: #3178c6;
+			}
+
 			&.career-dates {
 				color: #757575;
   			font-weight: lighter;
@@ -279,6 +291,32 @@ export class TerminalResponseItem extends Component {
 			vertical-align: middle;
 			margin: 0 0.2em 0.2em 0.4em;
 			filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.2));
+		}
+
+		ul {
+			list-style: none;
+			padding-left: 1.5em;
+
+			li {
+				position: relative;
+				padding-left: 0.75em;
+
+
+				&::before {
+					content: '-';
+					position: absolute;
+					left: 0;
+					top: 0;
+				}
+			}
+			&.ordered {
+				li {
+					&::before {
+						content: counter(item) '.';
+						counter-increment: item;
+					}
+				}
+			}
 		}
 	`;
 
