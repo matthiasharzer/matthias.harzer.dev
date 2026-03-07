@@ -6,10 +6,16 @@ import {
 	hoverHighlightBlock,
 	link,
 	list,
+	padding,
 	paragraph,
 	plainCommand,
+	type TerminalItem,
 	text,
 } from '../terminal.ts';
+
+const defaultPadding = 0.5;
+const block = (parts: TerminalItem[]) =>
+	hoverHighlightBlock([padding({ x: defaultPadding, y: defaultPadding }, group([...parts]))]);
 
 const tech: Command = {
 	name: 'tech',
@@ -20,86 +26,78 @@ const tech: Command = {
 				'I have experience in building front- and backend applications with a variety of technologies.',
 			]),
 			grid(2, [
-				hoverHighlightBlock([
-					paragraph([
-						text('On the frontend, I enjoy working with '),
-						list(
-							[
-								link('Lit', 'https://lit.dev/', 'lit'),
-								link('Next.js', 'https://nextjs.org/', 'nextjs'),
-								link('Svelte', 'https://svelte.dev/', 'svelte'),
-								link('Vue', 'https://vuejs.org/', 'vue'),
-								link('Flutter', 'https://flutter.dev/', 'flutter'),
-							],
-							'unordered',
-						),
-					]),
+				block([
+					text('On the frontend, I enjoy working with '),
+					list(
+						[
+							link('Lit', 'https://lit.dev/', 'lit'),
+							link('Next.js', 'https://nextjs.org/', 'nextjs'),
+							link('Svelte', 'https://svelte.dev/', 'svelte'),
+							link('Vue', 'https://vuejs.org/', 'vue'),
+							link('Flutter', 'https://flutter.dev/', 'flutter'),
+						],
+						'unordered',
+					),
 				]),
-				hoverHighlightBlock([
-					paragraph([
-						text('On the backend, I have experience with '),
-						list(
-							[
-								link('Go', 'https://go.dev/', 'go'),
-								group([
-									link('FastAPI', 'https://fastapi.tiangolo.com/', 'fastapi'),
-									text(' / '),
-									link('Python', 'https://www.python.org/', 'python'),
-								]),
-								group([
-									link('Node.js', 'https://nodejs.org/', 'node'),
-									text(' / '),
-									link('TypeScript', 'https://www.typescriptlang.org/', 'typescript'),
-								]),
-								link('Java', 'https://www.java.com/', 'java'),
-								link('C#', 'https://dotnet.microsoft.com/en-us/languages/csharp/', 'cs'),
-							],
-							'unordered',
-						),
-					]),
+				block([
+					text('On the backend, I have experience with '),
+					list(
+						[
+							link('Go', 'https://go.dev/', 'go'),
+							group([
+								link('FastAPI', 'https://fastapi.tiangolo.com/', 'fastapi'),
+								text(' / '),
+								link('Python', 'https://www.python.org/', 'python'),
+							]),
+							group([
+								link('Node.js', 'https://nodejs.org/', 'node'),
+								text(' / '),
+								link('TypeScript', 'https://www.typescriptlang.org/', 'typescript'),
+							]),
+							link('Java', 'https://www.java.com/', 'java'),
+							link('C#', 'https://dotnet.microsoft.com/en-us/languages/csharp/', 'cs'),
+						],
+						'unordered',
+					),
 				]),
-				hoverHighlightBlock([
-					paragraph([
-						text('I also have experience with '),
-						list(
-							[
-								link('Docker', 'https://www.docker.com/', 'docker'),
-								link(
-									'CI/CD pipelines',
-									'https://www.redhat.com/en/topics/devops/what-is-ci-cd',
-									'cicd',
-								),
-								link(
-									'Event Sourcing',
-									'https://docs.eventsourcingdb.io/about-eventsourcingdb/introduction-to-event-sourcing/',
-									'eventsourcing',
-								),
-								link('CQRS', 'https://www.cqrs.com/concepts/cqrs/', 'cqrs'),
-								link('Domain-Driven Design', 'https://www.domainlanguage.com/ddd/', 'ddd'),
-							],
-							'unordered',
-						),
-					]),
-				]),
-				hoverHighlightBlock([
-					paragraph([
-						text('Other tools and skills'),
-						list([
-							link('Git', 'https://git-scm.com/', 'git'),
+				block([
+					text('I also have experience with '),
+					list(
+						[
+							link('Docker', 'https://www.docker.com/', 'docker'),
 							link(
-								group([
-									highlight('F', 'f'),
-									highlight('i', 'i'),
-									highlight('g', 'g'),
-									highlight('m', 'm'),
-									highlight('a', 'a'),
-								]),
-								'https://www.figma.com/',
-								'figma',
+								'CI/CD pipelines',
+								'https://www.redhat.com/en/topics/devops/what-is-ci-cd',
+								'cicd',
 							),
-							link('Firebase', 'https://firebase.google.com/', 'firebase'),
-							link('Linux', 'https://www.linux.org/', 'linux'),
-						]),
+							link(
+								'Event Sourcing',
+								'https://docs.eventsourcingdb.io/about-eventsourcingdb/introduction-to-event-sourcing/',
+								'eventsourcing',
+							),
+							link('CQRS', 'https://www.cqrs.com/concepts/cqrs/', 'cqrs'),
+							link('Domain-Driven Designaaaaa', 'https://www.domainlanguage.com/ddd/', 'ddd'),
+						],
+						'unordered',
+					),
+				]),
+				block([
+					text('Other tools and skills'),
+					list([
+						link('Git', 'https://git-scm.com/', 'git'),
+						link(
+							group([
+								highlight('F', 'f'),
+								highlight('i', 'i'),
+								highlight('g', 'g'),
+								highlight('m', 'm'),
+								highlight('a', 'a'),
+							]),
+							'https://www.figma.com/',
+							'figma',
+						),
+						link('Firebase', 'https://firebase.google.com/', 'firebase'),
+						link('Linux', 'https://www.linux.org/', 'linux'),
 					]),
 				]),
 			]),
