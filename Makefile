@@ -1,12 +1,12 @@
 install-dependencies:
 	@npm ci
 
-qa: analyze typecheck
+qa: install-dependencies analyze typecheck
 
-typecheck: install-dependencies
+typecheck:
 	@npm run typecheck
 
-analyze: install-dependencies
+analyze:
 	@npm run analyze
 
 build: install-dependencies
