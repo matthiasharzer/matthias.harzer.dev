@@ -1,12 +1,8 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"includes": [
-			"src/**",
-			"!node_modules",
-			"!src/localization",
-			"!src/services/generated"
-		]
+		"ignoreUnknown": true,
+		"includes": ["**", "!node_modules", "!public/dist"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -27,13 +23,7 @@
 			"semicolons": "always",
 			"trailingCommas": "all"
 		},
-		"globals": [
-			"setup",
-			"suite",
-			"suiteSetup",
-			"teardown",
-			"test"
-		]
+		"globals": ["setup", "suite", "suiteSetup", "teardown", "test"]
 	},
 	"json": {
 		"formatter": {
@@ -47,17 +37,15 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"complexity": {
-        "noExcessiveLinesPerFunction": "off"
-      },
-			"correctness": {
-				"noPrivateImports": "off"
-			},
-			"performance": "on",
-			"security": "on",
-			"suspicious": "on",
-			"style": {
-				"useFilenamingConvention": "off"
+			"recommended": true,
+			"a11y": "off",
+			"suspicious": {
+				"noConsole": {
+					"level": "error",
+					"options": {
+						"allow": ["warn", "error"]
+					}
+				}
 			}
 		}
 	},
