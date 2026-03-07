@@ -142,7 +142,7 @@ export class TerminalResponseItem extends Component {
 			}
 
 			&.inovex {
-				color: #7df481 ;
+				color: #7df481;
 			}
 
 			&.infrastructure-as-code {
