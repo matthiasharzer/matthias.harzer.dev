@@ -57,6 +57,15 @@ export class TerminalInput extends Component {
 
 	#onKeydown(event: KeyboardEvent) {
 		if (this.disabled) return;
+
+		if (event.ctrlKey && !event.metaKey && event.code === 'KeyC') {
+			this.#input.value = '';
+			this.#suggestionIndex = -1;
+			this.#historyIndex = this.#history.length;
+			event.preventDefault();
+			return;
+		}
+
 		switch (event.code) {
 			case 'Tab': {
 				this.handleSuggestions();
@@ -91,14 +100,6 @@ export class TerminalInput extends Component {
 					this.#input.value = '';
 				}
 				event.preventDefault();
-				break;
-			}
-			case 'KeyC': {
-				if (event.ctrlKey) {
-					this.#input.value = '';
-					this.#historyIndex = this.#history.length;
-					event.preventDefault();
-				}
 				break;
 			}
 			default: {

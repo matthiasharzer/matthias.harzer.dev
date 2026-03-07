@@ -69,7 +69,9 @@ export class TerminalResponseItem extends Component {
 				background-clip: text;
 				-webkit-text-fill-color: transparent;
 
-				--underline-color: #3873a3;
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 
 			&.flutter {
@@ -83,7 +85,7 @@ export class TerminalResponseItem extends Component {
 			&.nextjs {
 				color: #000000;
 				--shadow-color: #888888;
-				--underline-color: #888888;
+				--underline-gradient: linear-gradient(#888888, #888888);
 			}
 
 			&.java {
@@ -143,7 +145,7 @@ export class TerminalResponseItem extends Component {
 				letter-spacing: 0.05em;
 				color: #051c59 ;
 				--shadow-color: hsl(223.57, 9.36%, 32.43%);
-				--underline-color: hsl(223.57, 9.36%, 32.43%);
+				--underline-gradient: linear-gradient(hsl(223.57, 9.36%, 32.43%), hsl(223.57, 9.36%, 32.43%));
 			}
 
 			&.infrastructure-as-code {
@@ -190,7 +192,19 @@ export class TerminalResponseItem extends Component {
 			}
 
 			&.figma {
-				--underline-color: #ff3737;
+				--underline-gradient: linear-gradient(
+					90deg,
+					#ff3737 0%,
+					#ff3737 20%,
+					#ff7237 20%,
+					#ff7237 40%,
+					#874fff 40%,
+					#874fff 60%,
+					#00b6ff 60%,
+					#00b6ff 80%,
+					#24cb71 80%,
+					#24cb71 100%
+					);
 
 				.f {
 					color: #ff3737;
@@ -216,7 +230,7 @@ export class TerminalResponseItem extends Component {
 			&.linux {
 				color: #000000;
 				--shadow-color: #888888;
-				--underline-color: #888888;
+				--underline-gradient: linear-gradient(#888888, #888888);
 			}
 
 			&.career-dates {
@@ -240,10 +254,10 @@ export class TerminalResponseItem extends Component {
 
 		a, button {
 			position: relative;
-			--underline-color: currentColor;
+			--underline-gradient: linear-gradient(currentColor, currentColor);
 
 			text-decoration: none;
-			background-image: linear-gradient(var(--underline-color), var(--underline-color));
+			background-image: var(--underline-gradient);
 			background-position: 0% 100%;
 			background-repeat: no-repeat;
 			background-size: 0% 2px;
@@ -306,6 +320,7 @@ export class TerminalResponseItem extends Component {
 			background-color: transparent;
 
 			transition: background-color 0.2s;
+			height: 100%;
 
 			&:hover {
 				background-color: rgba(68, 71, 90, 0.3);

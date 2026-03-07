@@ -1,19 +1,19 @@
 install-dependencies:
 	@npm ci
 
-qa: analyze test
+qa: install-dependencies analyze typecheck
 
-analyze: install-dependencies
+typecheck:
+	@npm run typecheck
+
+analyze:
 	@npm run analyze
-
-test: install-dependencies
-	@npm run test
 
 build: install-dependencies
 	@npm run build
 
 .PHONY: qa \
 				analyze \
-				test \
+				typecheck \
 				build \
 				install-dependencies

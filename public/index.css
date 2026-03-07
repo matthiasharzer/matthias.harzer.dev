@@ -8,10 +8,6 @@
 	src: url(./assets/fonts/VT323-Regular.ttf);
 }
 
-* {
-	line-height: 1;
-}
-
 body {
 	-webkit-font-smoothing: antialiased;
 	--border-color: #44475a;
@@ -21,6 +17,7 @@ body {
 	align-items: center;
 	height: 100dvh;
 	margin: 0;
+	line-height: 1;
 }
 
 @keyframes trail-appear {

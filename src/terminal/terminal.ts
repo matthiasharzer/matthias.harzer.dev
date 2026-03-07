@@ -86,6 +86,13 @@ interface TerminalGrid extends TerminalPart {
 	items: TerminalItem[]; // items are filled row by row
 }
 
+interface TerminalPadding extends TerminalPart {
+	type: 'padding';
+	x: number;
+	y: number;
+	part: TerminalItem;
+}
+
 type TerminalAdvancedItem =
 	| TerminalText
 	| TerminalHighlight
@@ -100,7 +107,8 @@ type TerminalAdvancedItem =
 	| TerminalInlineImage
 	| TerminalGroup
 	| TerminalList
-	| TerminalGrid;
+	| TerminalGrid
+	| TerminalPadding;
 
 type TerminalItem = TerminalAdvancedItem | string;
 
@@ -225,6 +233,18 @@ const grid = (cols: number, items: TerminalItem[]): TerminalGrid => ({
 	items,
 });
 
+interface PaddingOptions {
+	x: number;
+	y: number;
+}
+
+const padding = (options: PaddingOptions, part: TerminalItem): TerminalPadding => ({
+	type: 'padding',
+	x: options.x,
+	y: options.y,
+	part,
+});
+
 export {
 	button,
 	component,
@@ -244,6 +264,7 @@ export {
 	group,
 	list,
 	grid,
+	padding,
 };
 export type {
 	Command,
@@ -264,4 +285,5 @@ export type {
 	TerminalText,
 	TerminalList,
 	TerminalGrid,
+	TerminalPadding,
 };

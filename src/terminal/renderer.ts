@@ -123,6 +123,13 @@ const renderResponsePart = (
 				totalLength,
 			];
 		}
+		case 'padding': {
+			const [renderedPart, totalLength] = renderResponsePart(part.part, maxCharsToRender);
+			return [
+				html`<span style="display: inline-block; padding: ${part.y}em ${part.x}em;">${renderedPart}</span>`,
+				totalLength,
+			];
+		}
 	}
 };
 
