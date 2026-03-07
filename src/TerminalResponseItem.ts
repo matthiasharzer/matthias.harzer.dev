@@ -142,7 +142,6 @@ export class TerminalResponseItem extends Component {
 			}
 
 			&.inovex {
-				letter-spacing: 0.05em;
 				color: #7df481 ;
 			}
 
