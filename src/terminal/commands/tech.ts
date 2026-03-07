@@ -76,7 +76,7 @@ const tech: Command = {
 								'eventsourcing',
 							),
 							link('CQRS', 'https://www.cqrs.com/concepts/cqrs/', 'cqrs'),
-							link('Domain-Driven Designaaaaa', 'https://www.domainlanguage.com/ddd/', 'ddd'),
+							link('Domain-Driven Design', 'https://www.domainlanguage.com/ddd/', 'ddd'),
 						],
 						'unordered',
 					),

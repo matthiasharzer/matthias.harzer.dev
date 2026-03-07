@@ -62,6 +62,7 @@ export class TerminalInput extends Component {
 			if (event.code === 'KeyC') {
 				this.#input.value = '';
 				this.#suggestionIndex = -1;
+				this.#historyIndex = this.#history.length;
 				event.preventDefault();
 			}
 			return;
