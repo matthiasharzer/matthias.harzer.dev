@@ -186,5 +186,5 @@ class PongGame extends TerminalGame<GameState, Phase> {
 	}
 }
 
-export { PongGame };
 export type { GameConfig, GameState };
+export { PongGame };

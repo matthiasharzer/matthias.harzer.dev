@@ -94,4 +94,5 @@ class ConfigObservable extends Observable<Config> {
 }
 
 const configService = new ConfigObservable('app-config', initialConfig);
+
 export { configService };

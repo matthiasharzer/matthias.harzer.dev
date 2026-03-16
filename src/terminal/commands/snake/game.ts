@@ -254,5 +254,5 @@ class SnakeGame extends TerminalGame<SnakeGameState, Phase> {
 	}
 }
 
-export { SnakeGame };
 export type { Direction, Phase, SnakeGameConfig, SnakeGameState };
+export { SnakeGame };
