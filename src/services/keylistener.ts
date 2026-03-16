@@ -114,5 +114,5 @@ const keylistener: Keylistener = new Listener(window);
 const listen = (host: HostElement, options?: ListenOptions): CustomKeylistener =>
 	new Listener(host, options);
 
+export type { CustomKeylistener, Keylistener };
 export { keylistener, listen };
-export type { Keylistener, CustomKeylistener };

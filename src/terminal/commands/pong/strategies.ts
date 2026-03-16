@@ -270,5 +270,5 @@ class LocalTwoPlayerStrategy extends GameStrategy {
 	}
 }
 
-export { LocalTwoPlayerStrategy, SinglePlayerStrategy };
 export type { GameStrategy };
+export { LocalTwoPlayerStrategy, SinglePlayerStrategy };

@@ -58,4 +58,4 @@ abstract class TerminalGame<TState extends GameState<TPhase>, TPhase extends str
 	}
 }
 
-export { TerminalGame, type GameState };
+export { type GameState, TerminalGame };

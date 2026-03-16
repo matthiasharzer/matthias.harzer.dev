@@ -32,5 +32,5 @@ class RainbowProvider extends Observable<Color> {
 
 const rainbowProvider: ReadOnlyObservable<Color> = new RainbowProvider([100, 0, 255], 50);
 
-export { rainbowProvider };
 export type { Color };
+export { rainbowProvider };
