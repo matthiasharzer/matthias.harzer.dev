@@ -52,4 +52,4 @@ const commandNotFound = (command: string) => [
 	text(` ${command}: command not found.`),
 ];
 
-export { commandNotFound, findCommand, helpCommands, visibleCommands, commands };
+export { commandNotFound, commands, findCommand, helpCommands, visibleCommands };

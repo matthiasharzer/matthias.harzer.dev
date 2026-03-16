@@ -98,5 +98,5 @@ class Observable<T> implements ReadWriteObservable<T>, ReactiveController {
 	}
 }
 
-export { Observable };
 export type { ReadOnlyObservable, ReadWriteObservable, Subscriber, Unsubscribe };
+export { Observable };
