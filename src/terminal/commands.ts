@@ -15,7 +15,7 @@ import whoami from './commands/whoami.ts';
 import { type Command, highlight, text } from './terminal.ts';
 
 // biome-ignore format: Force vertical list for easier reading / reordering
-const commands = {
+const commands: Record<string, Command> = {
 	who,
 	tech,
 	career,

@@ -33,36 +33,36 @@ const colorToString = (color: Color | string) => {
 };
 
 class FaviconSetter {
-	#canvas: HTMLCanvasElement;
-	#context: CanvasRenderingContext2D;
+	private canvas: HTMLCanvasElement;
+	private context: CanvasRenderingContext2D;
 
 	constructor(canvas: HTMLCanvasElement) {
-		this.#canvas = canvas;
+		this.canvas = canvas;
 
-		const context = this.#canvas.getContext('2d');
+		const context = this.canvas.getContext('2d');
 		if (!context) {
 			throw new Error('Failed to get 2D context for favicon canvas.');
 		}
-		this.#context = context;
+		this.context = context;
 
-		this.#canvas.width = 100;
-		this.#canvas.height = 100;
+		this.canvas.width = 100;
+		this.canvas.height = 100;
 	}
 
 	setColor(color: Color | string) {
 		const colorStr = colorToString(color);
-		this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		drawGlowingText(
-			this.#context,
+			this.context,
 			'MH',
-			this.#canvas.width / 2,
-			this.#canvas.height / 2,
+			this.canvas.width / 2,
+			this.canvas.height / 2,
 			'#ffffff',
 			colorStr,
 			10,
 			60,
 		);
-		const url = this.#canvas.toDataURL('image/png');
+		const url = this.canvas.toDataURL('image/png');
 		const link =
 			(document.querySelector("link[rel~='icon']") as HTMLLinkElement) ||
 			document.createElement('link');

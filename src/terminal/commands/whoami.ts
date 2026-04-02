@@ -7,18 +7,17 @@ class WhoamiCommand implements Command {
 	isHidden = false;
 	noHelp = false;
 
-	#counter = 0;
-
-	#visibleCommands: Command[] = [];
+	private counter = 0;
+	private visibleCommands: Command[] = [];
 
 	setVisibleCommands(commands: Command[]) {
-		this.#visibleCommands = commands;
+		this.visibleCommands = commands;
 	}
 
 	prepare = (terminal: Terminal) => {
 		return () => {
-			this.#counter++;
-			switch (this.#counter) {
+			this.counter++;
+			switch (this.counter) {
 				case 1:
 					return [text(`I'm a terminal, what do you expect me to do? Try again.`)];
 				case 2:
@@ -26,7 +25,7 @@ class WhoamiCommand implements Command {
 				case 3:
 					return [text(`Stop it.`)];
 				case 4: {
-					const availableCommands = this.#visibleCommands.filter(
+					const availableCommands = this.visibleCommands.filter(
 						cmd => !['help', 'whoami'].includes(cmd.name),
 					);
 					const randomCommand =
@@ -49,7 +48,7 @@ class WhoamiCommand implements Command {
 						text(`. Happy now?`),
 					];
 				default:
-					this.#counter = 0;
+					this.counter = 0;
 					return [text(`I'm not going to tell you again.`)];
 			}
 		};

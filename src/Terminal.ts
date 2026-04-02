@@ -104,13 +104,13 @@ export class Terminal extends Component {
 		}
 	`;
 
-	#inputRef: Ref<TerminalInput> = createRef();
-	#focusInput = this.focusInput.bind(this);
-	#historyRef: Ref<HTMLDivElement> = createRef();
-	#suggestionTimeout: number | null = null;
-	#resolvePromptResponse: ((value: string) => void) | null = null;
-	#resizeObserver: ResizeObserver | null = null;
-	#startupCommand: Command | null = commands.intro;
+	private inputRef: Ref<TerminalInput> = createRef();
+	private _focusInput = this.focusInput.bind(this);
+	private historyRef: Ref<HTMLDivElement> = createRef();
+	private suggestionTimeout: number | null = null;
+	private resolvePromptResponse: ((value: string) => void) | null = null;
+	private resizeObserver: ResizeObserver | null = null;
+	private startupCommand: Command | null = commands.intro;
 
 	@state() inputDisabled: boolean = false;
 	@state() hidden: boolean = false;
@@ -119,17 +119,17 @@ export class Terminal extends Component {
 	@state() terminalWidth: number = 0;
 
 	get historyElement() {
-		if (!this.#historyRef.value) {
+		if (!this.historyRef.value) {
 			throw new Error('History element not available');
 		}
-		return this.#historyRef.value;
+		return this.historyRef.value;
 	}
 
 	get inputElement() {
-		if (!this.#inputRef.value) {
+		if (!this.inputRef.value) {
 			throw new Error('Input element not available');
 		}
-		return this.#inputRef.value;
+		return this.inputRef.value;
 	}
 
 	addResponse(response: Response) {
@@ -213,8 +213,8 @@ export class Terminal extends Component {
 			this.addCommandText(commandAndArgs);
 		}
 
-		if (this.#resolvePromptResponse) {
-			this.#resolvePromptResponse(commandAndArgs);
+		if (this.resolvePromptResponse) {
+			this.resolvePromptResponse(commandAndArgs);
 			return;
 		}
 
@@ -233,14 +233,14 @@ export class Terminal extends Component {
 	prompt(prompt: TerminalResponse): Promise<[string, boolean]> {
 		return new Promise(resolve => {
 			this.addResult(prompt);
-			this.#resolvePromptResponse = value => {
-				this.#resolvePromptResponse = null;
+			this.resolvePromptResponse = value => {
+				this.resolvePromptResponse = null;
 				resolve([value, value.length > 0]);
 			};
 		});
 	}
 
-	#makeRandomSuggestion() {
+	makeRandomSuggestion() {
 		const randomeCommand = helpCommands[Math.floor(Math.random() * helpCommands.length)];
 		if (!randomeCommand) return;
 		this.inputElement.suggestPlaceholder(randomeCommand.name);
@@ -248,28 +248,28 @@ export class Terminal extends Component {
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		this.addEventListener('click', this.#focusInput);
+		this.addEventListener('click', this._focusInput);
 
 		setTimeout(() => {
 			this.inputElement.suggestPlaceholder('help');
 		}, 4000);
-		this.#suggestionTimeout = window.setInterval(() => {
+		this.suggestionTimeout = window.setInterval(() => {
 			// Don't make a suggestion if we're currently waiting for a prompt response
-			if (this.#resolvePromptResponse) return;
+			if (this.resolvePromptResponse) return;
 			// Don't make a suggestion if input is disabled
 			if (this.inputDisabled) return;
-			this.#makeRandomSuggestion();
+			this.makeRandomSuggestion();
 		}, 15_000);
 	}
 
 	disconnectedCallback(): void {
 		super.disconnectedCallback();
-		this.removeEventListener('click', this.#focusInput);
-		if (this.#suggestionTimeout) {
-			clearInterval(this.#suggestionTimeout);
-			this.#suggestionTimeout = null;
+		this.removeEventListener('click', this._focusInput);
+		if (this.suggestionTimeout) {
+			clearInterval(this.suggestionTimeout);
+			this.suggestionTimeout = null;
 		}
-		this.#resizeObserver?.disconnect();
+		this.resizeObserver?.disconnect();
 	}
 
 	firstUpdated(_changedProperties: PropertyValues): void {
@@ -278,14 +278,14 @@ export class Terminal extends Component {
 		this.terminalHeight = this.shadowRoot?.host.clientHeight || 0;
 		this.terminalWidth = this.shadowRoot?.host.clientWidth || 0;
 
-		this.#resizeObserver = new ResizeObserver(entries => {
+		this.resizeObserver = new ResizeObserver(entries => {
 			this.terminalHeight = entries[0].contentRect.height;
 			this.terminalWidth = entries[0].contentRect.width;
 		});
-		this.#resizeObserver.observe(this.shadowRoot?.host as Element);
+		this.resizeObserver.observe(this.shadowRoot?.host as Element);
 
-		if (this.#startupCommand) {
-			this.executeCommand(this.#startupCommand);
+		if (this.startupCommand) {
+			this.executeCommand(this.startupCommand);
 		}
 	}
 
@@ -318,12 +318,12 @@ export class Terminal extends Component {
 				</div>
 				<div class="body">
 					<div class="terminal-content">
-						<div class="history ${this.inputDisabled ? 'disable-scroll' : ''}" ${ref(this.#historyRef)}>
+						<div class="history ${this.inputDisabled ? 'disable-scroll' : ''}" ${ref(this.historyRef)}>
 							${map(this.responses, response => this.renderResponse(response))}
 						</div>
 						<div class="command-input">
 							<mh-terminal-input
-								${ref(this.#inputRef)}
+								${ref(this.inputRef)}
 								?disabled=${this.inputDisabled}
 								@submit=${this.onCommandSubmit}
 							>

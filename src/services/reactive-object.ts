@@ -13,15 +13,15 @@ export class ReactiveObject<TObject extends BaseObject> extends Observable<TObje
 	constructor(initialValue: TObject) {
 		super(initialValue);
 
-		this.reactableValue = this.#createProxy(initialValue);
+		this.reactableValue = this.createProxy(initialValue);
 	}
 
-	#createProxy<T extends BaseObject>(value: T): T {
+	private createProxy<T extends BaseObject>(value: T): T {
 		return new Proxy(value, {
 			get: (target: T, prop: string) => {
 				const value = target[prop];
 				if (isObject(value)) {
-					return this.#createProxy(value);
+					return this.createProxy(value);
 				}
 				return value;
 			},

@@ -195,7 +195,7 @@ const LocalStateMixin = <Base extends Constructor<Component>, LocalState extends
 		private get storageKey(): string {
 			return `local-state-component-${this.localName}`;
 		}
-		#handleStateUpdate = this.handleStateUpdate.bind(this);
+		private _handleStateUpdate = this.handleStateUpdate.bind(this);
 
 		handleStateUpdate(state: LocalState): void {
 			localStorage.setItem(this.storageKey, JSON.stringify(state));
@@ -204,13 +204,13 @@ const LocalStateMixin = <Base extends Constructor<Component>, LocalState extends
 		connectedCallback(): void {
 			super.connectedCallback();
 			this._localState.subscribeHost(this, false);
-			this._localState.subscribe(this.#handleStateUpdate, false);
+			this._localState.subscribe(this._handleStateUpdate, false);
 		}
 
 		disconnectedCallback() {
 			super.disconnectedCallback();
 			this._localState.unsubscribeHost(this);
-			this._localState.unsubscribe(this.#handleStateUpdate);
+			this._localState.unsubscribe(this._handleStateUpdate);
 		}
 	}
 

@@ -395,14 +395,14 @@ export class TerminalResponseItem extends Component {
 		-1;
 
 	@state() _displayedContent: TemplateResult | TemplateResult[] = html``;
-	#placeholderRender: TemplateResult | TemplateResult[] = html``;
+	placeholderRender: TemplateResult | TemplateResult[] = html``;
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		this.#placeholderRender = renderResponse(this.result);
+		this.placeholderRender = renderResponse(this.result);
 
 		if (this.typewriterCharsPerSecond <= 0) {
-			this._displayedContent = this.#placeholderRender;
+			this._displayedContent = this.placeholderRender;
 			return;
 		}
 		this.runTypeWriterEffect();
@@ -459,7 +459,7 @@ export class TerminalResponseItem extends Component {
 		return html`
 			<div class="response">
 				<div class="placeholder-render">
-					${this.#placeholderRender}
+					${this.placeholderRender}
 				</div>
 				<div class="command-response">
 					${this._displayedContent}

@@ -29,26 +29,26 @@ interface ListenOptions {
 }
 
 class Listener extends Observable<Set<string>> {
-	#onKeydown = this.onKeyDown.bind(this);
-	#onKeyup = this.onKeyUp.bind(this);
-	#host: HostElement;
-	#options: ListenOptions | undefined;
+	private _onKeydown = this.onKeyDown.bind(this);
+	private _onKeyup = this.onKeyUp.bind(this);
+	private host: HostElement;
+	private options: ListenOptions | undefined;
 
 	constructor(host: HostElement, options?: ListenOptions) {
 		super(new Set());
 
-		this.#host = host;
-		this.#options = options;
-		host.addEventListener('keydown', this.#onKeydown);
-		host.addEventListener('keyup', this.#onKeyup);
+		this.host = host;
+		this.options = options;
+		host.addEventListener('keydown', this._onKeydown);
+		host.addEventListener('keyup', this._onKeyup);
 	}
 
 	applyOptions(e: KeyboardEvent) {
-		if (!this.#options) return;
-		if (this.#options.preventDefault) {
+		if (!this.options) return;
+		if (this.options.preventDefault) {
 			e.preventDefault();
 		}
-		if (this.#options.stopPropagation) {
+		if (this.options.stopPropagation) {
 			e.stopPropagation();
 		}
 	}
@@ -104,8 +104,8 @@ class Listener extends Observable<Set<string>> {
 		this.subscribers = [];
 		this.value.clear();
 
-		this.#host.removeEventListener('keydown', this.#onKeydown);
-		this.#host.removeEventListener('keyup', this.#onKeyup);
+		this.host.removeEventListener('keydown', this._onKeydown);
+		this.host.removeEventListener('keyup', this._onKeyup);
 	}
 }
 

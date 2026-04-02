@@ -35,13 +35,13 @@ class HelpCommand implements Command {
 		this.helpCommands = helpCommands;
 	}
 
-	#findCommand(commandName: string): Command | null {
+	private findCommand(commandName: string): Command | null {
 		return (
 			this.allCommands.find(cmd => cmd.name.toLowerCase() === commandName.toLowerCase()) ?? null
 		);
 	}
 
-	#overview(terminal: Terminal): TerminalResponse {
+	private overview(terminal: Terminal): TerminalResponse {
 		const commandItems: TerminalItem[] = [text('Available commands:'), linebreak(1)];
 		this.helpCommands.forEach((cmd, index) => {
 			if (index > 0) {
@@ -66,14 +66,14 @@ class HelpCommand implements Command {
 		return commandItems;
 	}
 
-	async #details(terminal: Terminal, args: string[]): Promise<TerminalResponse | null> {
+	async details(terminal: Terminal, args: string[]): Promise<TerminalResponse | null> {
 		if (args.length === 0) {
 			return [];
 		}
 
 		const commandName = args[0];
 		const remainingArgs = args.slice(1);
-		const command = this.#findCommand(commandName);
+		const command = this.findCommand(commandName);
 		if (!command) {
 			return [highlight('error:', 'error'), text(` ${commandName}: command not found.`)];
 		}
@@ -100,9 +100,9 @@ class HelpCommand implements Command {
 	prepare(terminal: Terminal) {
 		return async (...command: string[]) => {
 			if (command.length === 0) {
-				return this.#overview(terminal);
+				return this.overview(terminal);
 			}
-			return await this.#details(terminal, command);
+			return await this.details(terminal, command);
 		};
 	}
 
@@ -130,7 +130,7 @@ class HelpCommand implements Command {
 			return this.allCommands.map(cmd => cmd.name);
 		}
 
-		const subCommand = this.#findCommand(args[0]);
+		const subCommand = this.findCommand(args[0]);
 		if (!subCommand) {
 			const prefix = args[0].toLowerCase();
 			return this.allCommands

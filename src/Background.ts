@@ -63,23 +63,23 @@ export class Background extends Component {
 		}
 	`;
 
-	#onMouseMove = this.onMouseMove.bind(this);
-	#containerRef = createRef<HTMLDivElement>();
-	#lastTrailItem: TrailItem | null = null;
-	#unsubscribeConfig: Unsubscribe | null = null;
+	private _onMouseMove = this.onMouseMove.bind(this);
+	private containerRef = createRef<HTMLDivElement>();
+	private lastTrailItem: TrailItem | null = null;
+	private unsubscribeConfig: Unsubscribe | null = null;
 
 	get container() {
-		if (!this.#containerRef.value) {
+		if (!this.containerRef.value) {
 			throw new Error('Container not initialized');
 		}
-		return this.#containerRef.value;
+		return this.containerRef.value;
 	}
 
 	connectedCallback(): void {
 		super.connectedCallback();
-		window.addEventListener('mousemove', this.#onMouseMove);
+		window.addEventListener('mousemove', this._onMouseMove);
 
-		this.#unsubscribeConfig = configService.observeKey(
+		this.unsubscribeConfig = configService.observeKey(
 			'cursorTrailTimeoutMs',
 			() => {
 				for (const [id] of this.cache) {
@@ -92,8 +92,8 @@ export class Background extends Component {
 
 	disconnectedCallback(): void {
 		super.disconnectedCallback();
-		window.removeEventListener('mousemove', this.#onMouseMove);
-		this.#unsubscribeConfig?.();
+		window.removeEventListener('mousemove', this._onMouseMove);
+		this.unsubscribeConfig?.();
 	}
 
 	cache = new Map<string, TrailItem>();
@@ -155,12 +155,12 @@ export class Background extends Component {
 			existing.element.style.animation = 'fadein 0.3s forwards';
 		}
 
-		this.#lastTrailItem = this.cache.get(id) || null;
+		this.lastTrailItem = this.cache.get(id) || null;
 		this.setRemoveTimeout(id);
 	}
 
 	getTrailPositions(newX: number, newY: number): Position[] {
-		if (!this.#lastTrailItem) {
+		if (!this.lastTrailItem) {
 			return [
 				{
 					x: newX,
@@ -169,7 +169,7 @@ export class Background extends Component {
 			];
 		}
 
-		const { x: lastX, y: lastY } = this.#lastTrailItem;
+		const { x: lastX, y: lastY } = this.lastTrailItem;
 		const positions: Position[] = [];
 		const dx = newX - lastX;
 		const dy = newY - lastY;
@@ -213,7 +213,7 @@ export class Background extends Component {
 
 	render() {
 		return html`
-		<div ${ref(this.#containerRef)}>
+		<div ${ref(this.containerRef)}>
 		</div>
 		`;
 	}
