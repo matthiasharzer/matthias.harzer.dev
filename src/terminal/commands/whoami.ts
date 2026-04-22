@@ -43,8 +43,8 @@ class WhoamiCommand implements Command {
 					return [
 						text(`Alright, alright. You can find my source code at `),
 						link(
-							'github.com/MatthiasHarzer/matthias.harzer.dev',
-							'https://github.com/MatthiasHarzer/matthias.harzer.dev',
+							'github.com/matthiasharzer/matthias.harzer.dev',
+							'https://github.com/matthiasharzer/matthias.harzer.dev',
 						),
 						text(`. Happy now?`),
 					];
