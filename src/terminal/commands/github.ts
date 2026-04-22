@@ -6,7 +6,7 @@ const github: Command = {
 	prepare: plainCommand(() => {
 		return [
 			text('You can find my project at '),
-			link('github.com/MatthiasHarzer', 'https://github.com/MatthiasHarzer', 'github'),
+			link('github.com/matthiasharzer', 'https://github.com/matthiasharzer', 'github'),
 			text('.'),
 		];
 	}),
