@@ -4,7 +4,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.4.15",
 		"@lit/localize": "0.12.2",
-		"@lit/localize-tools": "0.8.1",
+		"@lit/localize-tools": "0.8.2",
 		"@lit/task": "1.0.3",
 		"esbuild": "0.28.0",
 		"lit": "3.3.2",
