@@ -8,10 +8,19 @@
 	src: url(./assets/fonts/VT323-Regular.ttf);
 }
 
+@font-face {
+	font-family: DMSans;
+	src: url(./assets/fonts/DMSans.ttf);
+}
+
+@font-face {
+	font-family: SpaceGrotesk;
+	src: url(./assets/fonts/SpaceGrotesk.ttf);
+}
+
+
 body {
 	-webkit-font-smoothing: antialiased;
-	--border-color: #44475a;
-	--terminal-bg-color: #1e1e1e;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -36,4 +45,10 @@ body {
 	100% {
 		opacity: 0;
 	}
+}
+
+
+:root {
+	--font-header: SpaceGrotesk, sans-serif;
+	--font-body: DMSans, sans-serif;
 }

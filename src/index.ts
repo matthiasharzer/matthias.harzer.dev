@@ -1,9 +1,7 @@
 import './App.ts';
-import './Background.ts';
-import './Terminal.ts';
-import './TerminalInput.ts';
-import './TerminalResponseItem.ts';
-import './TerminalSection.ts';
-import './components/PixelBorder.ts';
-import './terminal/commands/pong/component.ts';
-import './terminal/commands/snake/component.ts';
+import './components/BrutalismElement.ts';
+import './components/BrutalismButton.ts';
+import './components/Background.ts';
+import './Sidebar.ts';
+import './views/SettingsView.ts';
+

@@ -16,7 +16,6 @@ input {
   margin: 0;
 	interpolate-size: allow-keywords;
 	font-variant-ligatures: none;
-	font-family: var(--font-body);
 }
 
 img, picture, video, canvas, svg {
@@ -34,7 +33,6 @@ p {
 }
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
-	font-family: var(--font-header);
 }
 #root, #__next {
   isolation: isolate;
