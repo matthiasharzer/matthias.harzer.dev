@@ -54,8 +54,8 @@ const tech: Command = {
 								text(' / '),
 								link('TypeScript', 'https://www.typescriptlang.org/', 'typescript'),
 							]),
-							link('Java', 'https://www.java.com/', 'java'),
 							link('C#', 'https://dotnet.microsoft.com/en-us/languages/csharp/', 'cs'),
+							link('Java', 'https://www.java.com/', 'java'),
 						],
 						'unordered',
 					),
@@ -65,6 +65,7 @@ const tech: Command = {
 					list(
 						[
 							link('Docker', 'https://www.docker.com/', 'docker'),
+							link('OpenStack', 'https://www.openstack.org/', 'openstack'),
 							link(
 								'CI/CD pipelines',
 								'https://www.redhat.com/en/topics/devops/what-is-ci-cd',
