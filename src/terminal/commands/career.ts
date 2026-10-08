@@ -47,9 +47,6 @@ const careerEntries: CareerEntry[] = [
 				link('Ansible', 'https://www.ansible.com/', 'ansible'),
 				text('.'),
 			]),
-			paragraph([
-				// text('Implementation of project infrastructure, including build pipelines and automated testing within a Scrum process.')
-			]),
 		],
 	},
 	{
