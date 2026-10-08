@@ -145,8 +145,16 @@ export class TerminalResponseItem extends Component {
 				color: #7df481;
 			}
 
-			&.infrastructure-as-code {
-				color: #ff5555;
+			&.openstack {
+				color: #da1a32;
+			}
+
+			&.terraform {
+				color: #a067da;
+			}
+
+			&.ansible {
+				color: #5bbdbf;
 			}
 
 			&.cqrs {
