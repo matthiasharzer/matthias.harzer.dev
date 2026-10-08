@@ -26,8 +26,8 @@ export class Terminal extends Component {
 		:host {
 			width: 100%;
 			height: 100%;
-			max-width: 890px;
-			max-height: 590px;
+			max-width: 940px;
+			max-height: 630px;
 		}
 
 		.terminal {
