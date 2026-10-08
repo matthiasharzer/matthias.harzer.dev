@@ -34,18 +34,20 @@ const careerEntries: CareerEntry[] = [
 		url: 'https://www.inovex.de/',
 		icon: 'inovex.png',
 		startDate: new Date(2026, 2), // March 2026
-		endDate: new Date(2026, 7), // August 2026
+		// endDate: new Date(2026, 7), // August 2026
 		description: [
 			paragraph([
 				text(
-					'Internship in IT Engineering & Operations with a focus on agile software development and ',
+					'Internship & working student in IT Engineering & Operations with a focus on operating an  ',
 				),
-				link(
-					'infrastructure as code',
-					'https://www.redhat.com/en/topics/automation/what-is-infrastructure-as-code-iac',
-					'infrastructure-as-code',
-				),
+				link('OpenStack', 'https://www.openstack.org/', 'openstack'),
+				text('-based infrastructure including working with '),
+				link('Terraform', 'https://www.terraform.io/', 'terraform'),
+				text(' and '),
+				link('Ansible', 'https://www.ansible.com/', 'ansible'),
 				text('.'),
+			]),
+			paragraph([
 				// text('Implementation of project infrastructure, including build pipelines and automated testing within a Scrum process.')
 			]),
 		],
@@ -126,7 +128,7 @@ const careerEntries: CareerEntry[] = [
 				text('.'),
 			]),
 			paragraph([
-				text('Development of the '),
+				text('Development of a prototype for the '),
 				link(
 					'Smart Readiness Indicator',
 					'https://smartreadinessindicator.com/',
